@@ -20,11 +20,11 @@ SIMVRとは、VR(ヴァーチャルリアリティ)HMDに特化した多軸モ�
 ## 必須動作環境
 * オペレーティングシステム ： Windows 7以降、Linux 4.4.0以降
 * インターフェース : USB2.0ポート1つ以上
-* ※ SIMVRを動作させるためだけの環境であり、開発するVRなどのコンテンツ規模に合う__高性能パソコン__をご用意ください。
+* ※ SIMVRを動作させるためだけの環境であり、開発するVRなどのコンテンツ規模に合う**高性能パソコン**をご用意ください。
 * ※ Windows 10以降の場合、ドライバのインストールは必要ありません。
 
 ## 使い方
-### 機材の取扱いについてのご説明は__[説明書](https://github.com/Wizapply/SIMVR-Tools/blob/master/SIMVR_Manual.pdf)__をご確認ください。  
+### 機材の取扱いについてのご説明は[**説明書**](https://github.com/Wizapply/SIMVR-Tools/blob/master/SIMVR_Manual.pdf)をご確認ください。  
 
 Windows 10未満をご利用の場合は、`/driver/wizcdc.inf`ファイルをインストールしてからSIMVRをパソコンに接続してください。  
 ![WizapplySS002](resources/screenshot_002.png)    
@@ -38,14 +38,14 @@ GitHub右上ボタンよりダウンロード可能
 ![WizapplySS001](resources/screenshot_001.png)  
 
 ### 実行・セットアップ
-実際の使い方・セットアップについては、__[SimVR-SDK Wiki](https://github.com/Wizapply/SIMVR-Tools/wiki "SimVR-Tools Wiki")__にまとめておりますので、そちらをご覧ください。  
+実際の使い方・セットアップについては、[**SimVR-SDK Wiki**](https://github.com/Wizapply/SIMVR-Tools/wiki "SimVR-Tools Wiki")にまとめておりますので、そちらをご覧ください。  
 ![WizapplySIMVR](resources/howtosimvr.jpg) 
 
 ## 開発向けライセンスについて
 これらのファイルによって開発されたアプリケーションを実機で稼働させるためにライセンス認証が必要です。  
 ご購入いただいたお持ちのSIMVRでのみご利用が認められておりますので、別のSIMVRによるビジネスや展示会等でご利用の際は追加でライセンスしてください。  
 
-開発しているアプリケーションを認証するには__[SIMVRキーのオンライン発行](http://simvr01.com/simvrkeygen/)__でキーを取得してください。  
+開発しているアプリケーションを認証するには[**SIMVRキーのオンライン発行**](http://simvr01.com/simvrkeygen/)でキーを取得してください。  
 
 ## お問い合わせ先
 これらGitHubにアップロードされている全てのファイルについてご質問・ご報告は、下記ご連絡先までご確認ください。
