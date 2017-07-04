@@ -18,10 +18,11 @@ SIMVRとは、VR(ヴァーチャルリアリティ)HMDに特化した多軸モ�
 * `/resources` : GitHub用リソースファイル（開発には必要ありません）
 
 ## 必須動作環境
-* オペレーティングシステム ： Windows 7以降、Linux 4.4.0以降
+* オペレーティングシステム : Windows 7以降、Linux 4.4.0以降
 * インターフェース : USB2.0ポート1つ以上
-* ※ SIMVRを動作させるためだけの環境であり、開発するVRなどのコンテンツ規模に合う**高性能パソコン**をご用意ください。
-* ※ Windows 10以降の場合、ドライバのインストールは必要ありません。
+* ソフトウェア : VS2015 Visual C++ 再頒布可能パッケージ([ダウンロード](https://www.microsoft.com/ja-jp/download/details.aspx?id=48145))
+
+※ SIMVRを動作させるためだけの環境であり、開発するVRなどのコンテンツ規模に合う**高性能パソコン**をご用意ください。Windows 10以降の場合、ドライバのインストールは必要ありません。
 
 ## 使い方
 ### 機材の取扱いについてのご説明は[**説明書**](https://github.com/Wizapply/SIMVR-Tools/blob/master/SIMVR_Manual.pdf)をご確認ください。  
