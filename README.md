@@ -31,7 +31,6 @@ Windows 10未満をご利用の場合は、`/driver/wizcdc.inf`ファイルを�
 
 デジタル署名情報が含まれていませんと表示された場合は以下を試してみてください。  
 [デジタル署名のないドライバをインストールする方法](http://www.personal-media.co.jp/utronkb/support/install_sig_win8.html)  
-[Windows8/8.1で署名なしドライバをインストールする方法／テストモードにする方法](http://freesoft.tvbok.com/win8/testmode.html)
 
 ### データダウンロード方法
 GitHub右上ボタンよりダウンロード可能  
@@ -39,7 +38,7 @@ GitHub右上ボタンよりダウンロード可能
 
 ### 実行・セットアップ
 実際の使い方・セットアップについては、[**SimVR-SDK Wiki**](https://github.com/Wizapply/SIMVR-Tools/wiki "SimVR-Tools Wiki")にまとめておりますので、そちらをご覧ください。  
-![WizapplySIMVR](resources/howtosimvr.jpg) 
+[![WizapplySIMVR](resources/howtosimvr.jpg)](https://github.com/Wizapply/SIMVR-Tools/wiki)
 
 ## 開発向けライセンスについて
 これらのファイルによって開発されたアプリケーションを実機で稼働させるためにライセンス認証が必要です。  
