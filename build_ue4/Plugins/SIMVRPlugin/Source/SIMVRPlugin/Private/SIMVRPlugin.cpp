@@ -2,6 +2,7 @@
 
 
 #include "SIMVRPluginPrivatePCH.h"
+#include <windows.h>
 #include <stdlib.h>	// for mbstowcs_s(), wcstombs_s()
 #include <locale.h>	// for setlocale()
 

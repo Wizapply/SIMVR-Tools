@@ -1,20 +1,24 @@
 {
-	"FileVersion" : 3,
-	
-	"FriendlyName" : "SIMVR Plugin",
-	"Version" : 1,
-	"VersionName" : "1.0",
-	"CreatedBy" : "Wizapply",
-	"CreatedByURL" : "http://wizapply.com",
-	"EngineVersion" : "4.12.0",
-	"Description" : "Wizapply SIMVR plugin",
-	"Category" : "MotionDevice",
-	
-	"Modules" :
-	[
+	"FileVersion": 3,
+	"Version": 1,
+	"VersionName": "1.0",
+	"FriendlyName": "SIMVR Plugin",
+	"Description": "Wizapply SIMVR Tools Plugin",
+	"Category": "MotionDevice",
+	"CreatedBy": "Wizapply",
+	"CreatedByURL": "http://simvr01.com",
+	"DocsURL": "https://github.com/Wizapply/SIMVR-Tools",
+	"MarketplaceURL": "",
+	"SupportURL": "http://wizapply.com",
+	"EnabledByDefault": false,
+	"CanContainContent": false,
+	"IsBetaVersion": false,
+	"Installed": false,
+	"Modules": [
 		{
-			"Name" : "SIMVRPlugin",
-			"Type" : "Developer"
+			"Name": "SIMVRPlugin",
+			"Type": "Developer",
+			"LoadingPhase": "Default"
 		}
 	]
 }
