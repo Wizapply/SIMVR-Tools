@@ -12,7 +12,7 @@ SIMVRとは、VR(ヴァーチャルリアリティ)HMDに特化した多軸モ�
 * `/build_c++` : C++(VisualStudio 2015, CMAKE)で開発可能なInclude、DLLファイル群
 * `/build_unity5` : Unity5で開発可能なUnityPackageファイル
 * `/build_ue4` : 最新UnrealEngine4で開発可能なプラグイン及びプロジェクト群
-* `/build_ue4_12` : UnrealEngine4.12で開発可能なプラグイン及びプロジェクト群
+* `/tools` : SIMVR用のツール
 * `/demo` : SIMVRの動作を確認するためのサンプルデモゲーム群
 * `/driver` : SIMVR USB-CDCドライバ
 * `/resources` : GitHub用リソースファイル（開発には必要ありません）
