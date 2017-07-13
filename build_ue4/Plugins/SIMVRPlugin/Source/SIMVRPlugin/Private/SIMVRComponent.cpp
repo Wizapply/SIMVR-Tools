@@ -21,6 +21,8 @@ USIMVRComponent::USIMVRComponent()
 	SpeedYaw = 1.0f;
 	AccelerationYaw = 1.0f;
 
+	AxisProcessing = true;
+
 	RotationMotionRatio = 0.3f;
 	GravityMotionRatio = 0.7f;
 
@@ -60,27 +62,29 @@ void USIMVRComponent::TickComponent( float DeltaTime, ELevelTick TickType, FActo
 	p.speedAxis4 = SpeedYaw;
 	p.accelAxis4 = AccelerationYaw;
 
+	if (AxisProcessing) {
+
+	}
+
 	p.rotationMotionRatio = RotationMotionRatio;
 	p.gravityMotionRatio = GravityMotionRatio;
 
 	p.commandCount = 0;
 
-	ISIMVRPlugin::Get().UpdateBackLog();
-
-	ISIMVRPlugin::Get().SetAxisProcesser(true);
+	ISIMVRPlugin::Get().SetAxisProcesser(AxisProcessing);
 	ISIMVRPlugin::Get().SetOrigin(isOrigined);
 	ISIMVRPlugin::Get().UpdateSIMVR(&p);
 
-	// ...
+	ISIMVRPlugin::Get().UpdateBackLog();
 }
 
 void USIMVRComponent::OpenSIMVR()
 {
-	ISIMVRPlugin::Get().Open("");
-	SerialNumber = FString(ISIMVRPlugin::Get().GetSerialNumber());
+	ISIMVRPlugin::Get().Open(TCHAR_TO_UTF8(*AppCode));
 }
 
 void USIMVRComponent::CloseSIMVR()
 {
 	ISIMVRPlugin::Get().Close();
+	ISIMVRPlugin::Get().UpdateBackLog();
 }

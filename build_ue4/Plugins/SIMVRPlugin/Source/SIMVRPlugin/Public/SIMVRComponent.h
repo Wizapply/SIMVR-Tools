@@ -26,9 +26,13 @@ public:
 	UPROPERTY(Category = Status, VisibleAnywhere)
 		bool isOpened;
 
-	//SerialNumber
-	UPROPERTY(Category = SerialNumber, VisibleAnywhere)
-		FString SerialNumber;
+	//AppCode
+	UPROPERTY(Category = AppCode, EditAnywhere)
+		FString AppCode;
+
+	//Status
+	UPROPERTY(Category = Status, VisibleAnywhere)
+		bool AxisProcessing;
 
 	///Rotation
 	UPROPERTY(Category = Rotation, EditAnywhere, meta = (ClampMin = "-1.0", ClampMax = "1.0", UIMin = "-1.0", UIMax = "1.0"))

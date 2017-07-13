@@ -18,7 +18,10 @@ extern "C" {
 	typedef void(*simvrSetAxisProcessingMode_ptr)(bool value);
 	typedef bool(*simvrGetAxisProcessingMode_ptr)();
 
-	typedef const char*(*simvrGetSerialNumber_ptr)();
+	typedef const char*(*simvrGetAppCode_ptr)();
+
+	typedef int(*simvrGetState_ptr)();
+	typedef const char*(*simvrGetVersion_ptr)();
 
 	typedef const char*(*simvrGetBackLog_ptr)();
 	typedef void(*simvrClearBackLog_ptr)();
@@ -42,7 +45,8 @@ public:
 
 	virtual void SetAxisProcesser(bool value) override;
 	virtual void SetOrigin(bool value) override;
-	virtual char* GetSerialNumber() override;
+	virtual char* GetAppCode() override;
+	virtual int GetState() override;
 
 private:
 	HINSTANCE hLibrary;
@@ -55,7 +59,9 @@ public:
 	simvrGetOriginMode_ptr simvrGetOrigin;
 	simvrSetAxisProcessingMode_ptr simvrSetAxisProcessingMode;
 	simvrGetAxisProcessingMode_ptr simvrGetAxisProcessingMode;
-	simvrGetSerialNumber_ptr simvrGetSerialNumber;
+	simvrGetAppCode_ptr simvrGetAppCode;
+	simvrGetState_ptr simvrGetState;
+	simvrGetVersion_ptr simvrGetVersion;
 	simvrGetBackLog_ptr simvrGetBackLog;
 	simvrClearBackLog_ptr simvrClearBackLog;
 	simvrGetBackLogSize_ptr simvrGetBackLogSize;
@@ -84,7 +90,9 @@ void FSIMVRPlugin::StartupModule()
 		simvrGetOrigin = reinterpret_cast<simvrGetOriginMode_ptr>(::GetProcAddress(hLibrary, "simvrGetOriginMode"));
 		simvrSetAxisProcessingMode = reinterpret_cast<simvrSetAxisProcessingMode_ptr>(::GetProcAddress(hLibrary, "simvrSetAxisProcessingMode"));
 		simvrGetAxisProcessingMode = reinterpret_cast<simvrGetAxisProcessingMode_ptr>(::GetProcAddress(hLibrary, "simvrGetAxisProcessingMode"));
-		simvrGetSerialNumber = reinterpret_cast<simvrGetSerialNumber_ptr>(::GetProcAddress(hLibrary, "simvrGetSerialNumber"));
+		simvrGetAppCode = reinterpret_cast<simvrGetAppCode_ptr>(::GetProcAddress(hLibrary, "simvrGetAppCode"));
+		simvrGetState = reinterpret_cast<simvrGetState_ptr>(::GetProcAddress(hLibrary, "simvrGetState"));
+		simvrGetVersion = reinterpret_cast<simvrGetVersion_ptr>(::GetProcAddress(hLibrary, "simvrGetVersion"));
 		simvrGetBackLog = reinterpret_cast<simvrGetBackLog_ptr>(::GetProcAddress(hLibrary, "simvrGetBackLog"));
 		simvrClearBackLog = reinterpret_cast<simvrClearBackLog_ptr>(::GetProcAddress(hLibrary, "simvrClearBackLog"));
 		simvrGetBackLogSize = reinterpret_cast<simvrGetBackLogSize_ptr>(::GetProcAddress(hLibrary, "simvrGetBackLogSize"));
@@ -96,7 +104,7 @@ void FSIMVRPlugin::StartupModule()
 	}
 	else
 	{
-		::MessageBox(NULL, TEXT("simvr.dll file is not found!"), TEXT("simvr.dll load error!"), MB_OK);
+		::MessageBox(NULL, TEXT("simvr.dll file is not found! \'Binaries/Win64/simvr.dll\'"), TEXT("simvr.dll load error!"), MB_OK);
 	}
 
 }
@@ -140,6 +148,7 @@ void FSIMVRPlugin::UpdateBackLog()
 		size_t wLen = 0;
 		const char* buffer = simvrGetBackLog();
 		mbstowcs_s(&wLen, wStrW, 512, buffer, _TRUNCATE);
+
 		UE_LOG(LogTemp, Warning, TEXT("%s"), wStrW);
 		simvrClearBackLog();
 	}
@@ -173,10 +182,18 @@ void FSIMVRPlugin::SetOrigin(bool value)
 	simvrSetOrigin(value);
 }
 
-char* FSIMVRPlugin::GetSerialNumber()
+char* FSIMVRPlugin::GetAppCode()
 {
 	if (!isDllLoaded)
 		return NULL;
 
-	return (char*)simvrGetSerialNumber();
+	return (char*)simvrGetAppCode();
+}
+
+int FSIMVRPlugin::GetState()
+{
+	if (!isDllLoaded)
+		return -1;
+
+	return simvrGetState();
 }

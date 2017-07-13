@@ -8,23 +8,23 @@ namespace UnrealBuildTool.Rules
 		{
 			PublicIncludePaths.AddRange(
 				new string[] {
-                    "SIMVRPlugin/Public"
-                }
+					"Public"
+				}
 				);
 
 			PrivateIncludePaths.AddRange(
 				new string[] {
-                    "SIMVRPlugin/Private",
+					"Private",
 				}
 				);
 
 			PublicDependencyModuleNames.AddRange(
 				new string[]
 				{
-                    "Engine",
-                    "Core",
-                    "CoreUObject",
-                    "Projects",
+					"Engine",
+					"Core",
+					"CoreUObject",
+					"Projects",
 				}
 				);
 

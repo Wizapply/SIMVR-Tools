@@ -67,5 +67,6 @@ public:
 
 	virtual void SetAxisProcesser(bool value) = 0;
 	virtual void SetOrigin(bool value) = 0;
-	virtual char* GetSerialNumber() = 0;
+	virtual char* GetAppCode() = 0;
+	virtual int GetState() = 0;
 };
