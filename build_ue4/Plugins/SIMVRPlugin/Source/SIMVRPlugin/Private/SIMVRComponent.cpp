@@ -10,7 +10,7 @@ USIMVRComponent::USIMVRComponent()
 	// off to improve performance if you don't need them.
 	PrimaryComponentTick.bCanEverTick = true;
 
-	Roll = 0.0f;
+	Roll = 0.f;
 	Pitch = 0.0f;
 	Yaw = 0.0f;
 	Heave = 0.0f;
@@ -22,13 +22,16 @@ USIMVRComponent::USIMVRComponent()
 	AccelerationYaw = 1.0f;
 
 	AxisProcessing = true;
+	Axis1Value = 0.5f;
+	Axis2Value = 0.5f;
+	Axis3Value = 0.5f;
+	Axis4Value = 0.5f;
 
 	RotationMotionRatio = 0.3f;
 	GravityMotionRatio = 0.7f;
 
 	isOrigined = false;
 	isOpened = false;
-	// ...
 }
 
 
@@ -63,7 +66,10 @@ void USIMVRComponent::TickComponent( float DeltaTime, ELevelTick TickType, FActo
 	p.accelAxis4 = AccelerationYaw;
 
 	if (AxisProcessing) {
-
+		p.axis1 = Axis1Value;
+		p.axis2 = Axis2Value;
+		p.axis3 = Axis3Value;
+		p.axis4 = Axis4Value;
 	}
 
 	p.rotationMotionRatio = RotationMotionRatio;
