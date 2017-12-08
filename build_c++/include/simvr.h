@@ -83,7 +83,7 @@ typedef struct _simvr_data_packet
 
 struct Property;
 
-#define SIMVR_SDKVERSION "1.0.1"
+#define SIMVR_SDKVERSION "1.0.2"
 
 class SIMVRPORT SIMVR
 {
@@ -121,6 +121,7 @@ public:
 	bool GetAxisProcessingMode();
 
 	const char* GetAppCode() const;
+	const char* GetSIMVRSerialNumber() const;
 
 	int GetState();
 	bool GetEnableButton() const;
