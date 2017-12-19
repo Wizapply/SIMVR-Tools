@@ -17,9 +17,10 @@ set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "-g -O3 -pg -fsigned-char")
 set(CMAKE_CXX_FLAGS_RELEASE "-O2 -s -DNDEBUG -march=native -fomit-frame-pointer -fpic -ffunction-sections -fsigned-char")
 set(CMAKE_CXX_FLAGS_MINSIZEREL "")
 
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ./../../bin)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ./../../bin/x64)
 
 include_directories(./../../include ./../../src/app_src)
+link_directories(./../../bin/x64)
 
 add_executable(Main ./../../src/main.cpp)
 
@@ -27,7 +28,7 @@ add_executable(Main ./../../src/main.cpp)
 # can link multiple libraries, such as libraries you define in the
 # build script, prebuilt third-party libraries, or system libraries.
 
-target_link_libraries( # Specifies the target library.
-                       simvr)
+target_link_libraries(Main # Specifies the target library.
+                      simvr pthread)
 
 add_definitions(-DLINUX)

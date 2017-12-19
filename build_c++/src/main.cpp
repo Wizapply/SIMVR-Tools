@@ -28,7 +28,6 @@
 #include <simvr.h>	//SIMVR SDK
 #include <string>
 #include <iostream>
-#include <Windows.h>
 
 /* -- Global variable definition ---------------------------------------- */
 
@@ -78,7 +77,7 @@ int main(int argc, char *argv[])
 
 	auto packet = DefaultPacket();
 
-	std::cout << "このプログラムはROLL,PITCH,YAWを変えることができます。\n指定数値 0.0 ～ 1.0、exitを入力で終了。" << std::endl;
+	std::cout << "This program can change ROLL, PITCH, YAW of SIMVR. \nSpecification value 0.0-1.0 And, this is ended in an [exit] input. " << std::endl;
 
 	while (g_pSIMVRSystem->IsRunning())
 	{
