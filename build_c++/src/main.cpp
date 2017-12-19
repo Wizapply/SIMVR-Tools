@@ -77,7 +77,7 @@ int main(int argc, char *argv[])
 
 	auto packet = DefaultPacket();
 
-	std::cout << "This program can change ROLL, PITCH, YAW of SIMVR. \nSpecification value 0.0-1.0 And, this is ended in an [exit] input. " << std::endl;
+	std::cout << "This program can change ROLL, PITCH, YAW of SIMVR. \nSpecification value [-1.0 to 1.0]. And, this is ended in an [exit] input. " << std::endl;
 
 	while (g_pSIMVRSystem->IsRunning())
 	{
