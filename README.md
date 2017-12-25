@@ -10,6 +10,7 @@ SIMVRとは、VR(ヴァーチャルリアリティ)HMDに特化した多軸モ�
 
 ## フォルダ構成
 * `/build_c++` : C++(VisualStudio 2015, CMAKE)で開発可能なInclude、DLLファイル群
+* `/build_python` : Python2で開発可能なpyファイル群
 * `/build_unity5` : Unity5で開発可能なUnityPackageファイル
 * `/build_ue4` : 最新UnrealEngine4で開発可能なプラグイン及びプロジェクト群
 * `/tools` : SIMVR用のツール
