@@ -128,7 +128,7 @@ def simvrUpdateSIMVR(roll, pitch, yaw) :
 #---------------------------------------------------
 # Main Program
 
-simvrAwake("FREESIMVRPROGRAM")
+simvrAwake("")
 print "SIMVR-START..."
 
 time.sleep(1) #wait
