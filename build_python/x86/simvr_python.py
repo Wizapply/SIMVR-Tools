@@ -139,7 +139,7 @@ simvrUpdateBackLog()
 print "This program can change ROLL, PITCH, YAW of SIMVR. \nSpecification value [-1.0 to 1.0]. And, this is ended in an [exit] input."
 
 while(1) :
-    rolldata = raw_input('ROLL >> ')
+    rolldata = raw_input('ROLL >> ')	#python3 = input(*)
     if(rolldata == 'exit') : break
     pitchdata = raw_input('PITCH >> ')
     if(pitchdata == 'exit') : break
