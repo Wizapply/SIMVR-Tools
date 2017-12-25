@@ -98,7 +98,7 @@ def simvrUpdateBackLog() :
         simbuffer = cast(simvrlib.simvrGetBackLog(),c_char_p)
         memmove(p, simbuffer, size)
         simvrbufferString = p.value;
-        print simvrbufferString
+        print simvrbufferString.rstrip("\n")
         simvrlib.simvrClearBackLog();
 
 def simvrUpdateState() :
@@ -106,7 +106,10 @@ def simvrUpdateState() :
     global simvrlib
     
     stateNo = simvrlib.simvrGetState();
-    #TODO
+    #State
+    if(stateNo != -1 and stateNo != Running and stateNo != StopActuator) :
+        return False
+    return True
     
 def simvrUpdateSIMVR(roll, pitch, yaw) :
     global simvrIsOpen
@@ -123,7 +126,7 @@ def simvrUpdateSIMVR(roll, pitch, yaw) :
     simvrlib.simvrWrite(byref(packet));
 
 #---------------------------------------------------
-# Main
+# Main Program
 
 simvrAwake("FREESIMVRPROGRAM")
 print "SIMVR-START..."
@@ -138,7 +141,7 @@ simvrUpdateBackLog()
 
 print "This program can change ROLL, PITCH, YAW of SIMVR. \nSpecification value [-1.0 to 1.0]. And, this is ended in an [exit] input."
 
-while(1) :
+while(simvrUpdateState()) :
     rolldata = raw_input('ROLL >> ')	#python3 = input(*)
     if(rolldata == 'exit') : break
     pitchdata = raw_input('PITCH >> ')
@@ -147,7 +150,6 @@ while(1) :
     if(yawdata == 'exit') : break
     
     simvrUpdateSIMVR(float(rolldata), float(pitchdata), float(yawdata))
-    #simvrUpdateBackLog()
     print "SIMVR RUN"
     
 print "SIMVR-SHUTDOWN"
