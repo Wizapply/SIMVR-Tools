@@ -122,6 +122,9 @@ def simvrUpdateSIMVR(roll, pitch, yaw) :
     packet.roll = roll
     packet.pitch = pitch
     packet.yaw = yaw
+
+    packet.rotationMotionRatio = 1.0
+    packet.gravityMotionRatio = 0.0
     
     simvrlib.simvrWrite(byref(packet));
 
