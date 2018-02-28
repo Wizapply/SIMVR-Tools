@@ -16,6 +16,7 @@ private:
 
 	float currTime;
 	FVector previousPos;
+	FVector previousVec;
 	float previousYaw;
 
 	float saveRoll;
@@ -40,26 +41,26 @@ public:
 	// Called every frame
 	virtual void TickComponent( float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction ) override;
 
-	UPROPERTY(Category = "Target Setting", EditAnywhere)
+	UPROPERTY(BlueprintReadWrite, Category = "Target Setting", EditAnywhere)
 		AActor* TrackingTarget;
-	UPROPERTY(Category = "Processing Setting", EditAnywhere, meta = (ClampMin = "0.0"))
+	UPROPERTY(BlueprintReadWrite, Category = "Processing Setting", EditAnywhere, meta = (ClampMin = "0.0"))
 		float updateTime;
-	UPROPERTY(Category = "Processing Setting", EditAnywhere)
+	UPROPERTY(BlueprintReadWrite, Category = "Processing Setting", EditAnywhere)
 		FVector4 wscale;
 
 	//Rotation
-	UPROPERTY(Category = "Force Rotation and G", EditAnywhere, meta = (ClampMin = "-1.0", ClampMax = "1.0", UIMin = "-1.0", UIMax = "1.0"))
+	UPROPERTY(BlueprintReadWrite, Category = "Force Rotation and G", EditAnywhere, meta = (ClampMin = "-1.0", ClampMax = "1.0", UIMin = "-1.0", UIMax = "1.0"))
 		float RollForce;
-	UPROPERTY(Category = "Force Rotation and G", EditAnywhere, meta = (ClampMin = "-1.0", ClampMax = "1.0", UIMin = "-1.0", UIMax = "1.0"))
+	UPROPERTY(BlueprintReadWrite, Category = "Force Rotation and G", EditAnywhere, meta = (ClampMin = "-1.0", ClampMax = "1.0", UIMin = "-1.0", UIMax = "1.0"))
 		float PitchForce;
-	UPROPERTY(Category = "Force Rotation and G", EditAnywhere, meta = (ClampMin = "-1.0", ClampMax = "1.0", UIMin = "-1.0", UIMax = "1.0"))
+	UPROPERTY(BlueprintReadWrite, Category = "Force Rotation and G", EditAnywhere, meta = (ClampMin = "-1.0", ClampMax = "1.0", UIMin = "-1.0", UIMax = "1.0"))
 		float YawForce;
 	//G
-	UPROPERTY(Category = "Force Rotation and G", EditAnywhere, meta = (ClampMin = "-1.0", ClampMax = "1.0", UIMin = "-1.0", UIMax = "1.0"))
+	UPROPERTY(BlueprintReadWrite, Category = "Force Rotation and G", EditAnywhere, meta = (ClampMin = "-1.0", ClampMax = "1.0", UIMin = "-1.0", UIMax = "1.0"))
 		float HeaveForce;
-	UPROPERTY(Category = "Force Rotation and G", EditAnywhere, meta = (ClampMin = "-1.0", ClampMax = "1.0", UIMin = "-1.0", UIMax = "1.0"))
+	UPROPERTY(BlueprintReadWrite, Category = "Force Rotation and G", EditAnywhere, meta = (ClampMin = "-1.0", ClampMax = "1.0", UIMin = "-1.0", UIMax = "1.0"))
 		float SwayForce;
-	UPROPERTY(Category = "Force Rotation and G", EditAnywhere, meta = (ClampMin = "-1.0", ClampMax = "1.0", UIMin = "-1.0", UIMax = "1.0"))
+	UPROPERTY(BlueprintReadWrite, Category = "Force Rotation and G", EditAnywhere, meta = (ClampMin = "-1.0", ClampMax = "1.0", UIMin = "-1.0", UIMax = "1.0"))
 		float SurgeForce;
 
 };

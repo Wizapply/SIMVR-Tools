@@ -28,15 +28,19 @@ void USIMVRMover::BeginPlay()
 	Controller = GetOwner()->FindComponentByClass<USIMVRComponent>();
 
 	if (Controller == nullptr) {
-		UE_LOG(LogTemp, Warning, TEXT("%s"), "USIMVRComponent Nothing");
+		UE_LOG(SIMVRLog, Warning, TEXT("%s"), L"There is no SIMVRComponent. Please add SIMVRComponent.");
+		return;
 	}
 	if (TrackingTarget == nullptr) {
-		UE_LOG(LogTemp, Warning, TEXT("%s"), "TrackingTarget Nothing");
+		UE_LOG(SIMVRLog, Warning, TEXT("%s"), L"TrackingTarget value is not specified.");
+		return;
 	}
 
 	currTime = updateTime;
 	previousPos = TrackingTarget->GetTransform().GetLocation();
 	previousYaw = 0.0f;
+
+	previousVec = FVector(0.0f, 0.0f, 0.0f);
 
 	saveRoll = savePitch = saveYaw = saveHeave = saveSway = saveSurge = 0.0f;
 }
@@ -62,17 +66,20 @@ void USIMVRMover::TickComponent( float DeltaTime, ELevelTick TickType, FActorCom
 		FVector vec = TrackingTarget->GetTransform().GetLocation() - previousPos;
 		previousPos = TrackingTarget->GetTransform().GetLocation();
 
+		FVector vecChange = vec - previousVec;
+		previousVec = vec;
+
 		//G_calc
 		FVector surge, sway, heave;
-		surge.X = vec.X * TrackingTarget->GetActorForwardVector().X;
-		surge.Y = vec.Y * TrackingTarget->GetActorForwardVector().Y;
-		surge.Z = vec.Z * TrackingTarget->GetActorForwardVector().Z;
-		sway.X = vec.X * TrackingTarget->GetActorRightVector().X;
-		sway.Y = vec.Y * TrackingTarget->GetActorRightVector().Y;
-		sway.Z = vec.Z * TrackingTarget->GetActorRightVector().Z;
-		heave.X = vec.X * TrackingTarget->GetActorUpVector().X;
-		heave.Y = vec.Y * TrackingTarget->GetActorUpVector().Y;
-		heave.Z = vec.Z * TrackingTarget->GetActorUpVector().Z;
+		surge.X = vecChange.X * TrackingTarget->GetActorForwardVector().X;
+		surge.Y = vecChange.Y * TrackingTarget->GetActorForwardVector().Y;
+		surge.Z = vecChange.Z * TrackingTarget->GetActorForwardVector().Z;
+		sway.X = vecChange.X * TrackingTarget->GetActorRightVector().X;
+		sway.Y = vecChange.Y * TrackingTarget->GetActorRightVector().Y;
+		sway.Z = vecChange.Z * TrackingTarget->GetActorRightVector().Z;
+		heave.X = vecChange.X * TrackingTarget->GetActorUpVector().X;
+		heave.Y = vecChange.Y * TrackingTarget->GetActorUpVector().Y;
+		heave.Z = vecChange.Z * TrackingTarget->GetActorUpVector().Z;
 
 		//G
 		saveSurge = Controller->Surge = ToRoundDown((surge.X + surge.Y + surge.Z) * wscale.X, 2);
@@ -80,14 +87,14 @@ void USIMVRMover::TickComponent( float DeltaTime, ELevelTick TickType, FActorCom
 		saveHeave = Controller->Heave = ToRoundDown((heave.X + heave.Y + heave.Z) * wscale.Z, 2);
 
 		//YAW_G calc
-		float yaws = FMath::FindDeltaAngle(TrackingTarget->GetTransform().GetRotation().Euler().Y, previousYaw) / 10.0f * wscale.W;	//+-10度 = +-1.0
-		previousYaw = TrackingTarget->GetTransform().GetRotation().Euler().Y;
+		float yaws = FMath::FindDeltaAngle(TrackingTarget->GetTransform().GetRotation().Euler().Z, previousYaw) / 10.0f * wscale.W;	//+-10度 = +-1.0
+		previousYaw = TrackingTarget->GetTransform().GetRotation().Euler().Z;
 		//YAW_G
 		saveYaw = Controller->Yaw = ToRoundDown(yaws, 2);
 
 		//Roll, Pitch
-		float rolls = FMath::FindDeltaAngle(TrackingTarget->GetTransform().GetRotation().Euler().Z, 0.0f) / 10.0f;	//+-10度
-		float pitchs = FMath::FindDeltaAngle(TrackingTarget->GetTransform().GetRotation().Euler().X, 0.0f) / 10.0f;	//+-10度
+		float rolls = FMath::FindDeltaAngle(TrackingTarget->GetTransform().GetRotation().Euler().X, 0.0f) / 10.0f;	//+-10度
+		float pitchs = FMath::FindDeltaAngle(TrackingTarget->GetTransform().GetRotation().Euler().Y, 0.0f) / 10.0f;	//+-10度
 
 		saveRoll = Controller->Roll = ToRoundDown(rolls, 2);
 		savePitch = Controller->Pitch = ToRoundDown(pitchs, 2);

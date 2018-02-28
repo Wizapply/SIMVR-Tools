@@ -45,6 +45,8 @@ SIMVRSDK::SIMVRDataPacket DefaultPacket()
 	packet.axis2 = 0.5f;
 	packet.axis3 = 0.5f;
 	packet.axis4 = 0.5f;
+	packet.axis5 = 0.5f;
+	packet.axis6 = 0.5f;
 
 	//Axis speed/accel controls
 	packet.speedAxis123 = 1.0f;

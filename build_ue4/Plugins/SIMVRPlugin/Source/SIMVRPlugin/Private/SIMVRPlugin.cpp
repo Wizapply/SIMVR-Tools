@@ -6,6 +6,8 @@
 #include <stdlib.h>	// for mbstowcs_s(), wcstombs_s()
 #include <locale.h>	// for setlocale()
 
+DEFINE_LOG_CATEGORY(SIMVRLog);
+
 //LoadLibrary
 extern "C" {
 	typedef int(*simvrOpen_ptr)(const char* serialNo);
@@ -149,7 +151,7 @@ void FSIMVRPlugin::UpdateBackLog()
 		const char* buffer = simvrGetBackLog();
 		mbstowcs_s(&wLen, wStrW, 512, buffer, _TRUNCATE);
 
-		UE_LOG(LogTemp, Warning, TEXT("%s"), wStrW);
+		UE_LOG(SIMVRLog, Log, TEXT("%s"), wStrW);
 		simvrClearBackLog();
 	}
 

@@ -38,6 +38,8 @@ typedef struct _simvr_data_packet
 	float axis2;
 	float axis3;
 	float axis4;
+	float axis5;
+	float axis6;
 
 	//Axis speed/accel controls
 	float speedAxis123;
@@ -83,7 +85,7 @@ typedef struct _simvr_data_packet
 
 struct Property;
 
-#define SIMVR_SDKVERSION "1.0.2"
+#define SIMVR_SDKVERSION "1.0.3"
 
 class SIMVRPORT SIMVR
 {

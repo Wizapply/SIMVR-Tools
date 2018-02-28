@@ -19,10 +19,12 @@ CalibrationRetry = 10
 # Simvr Data Packet
 class simvrPacket(Structure):  
     _fields_ = [  
-            ("axis1", c_float),  
-            ("axis2", c_float),  
+            ("axis1", c_float),
+            ("axis2", c_float),
             ("axis3", c_float),
-            ("axis4", c_float),  
+            ("axis4", c_float),
+            ("axis5", c_float),
+            ("axis6", c_float),
             ("speedAxis123", c_float),  
             ("accelAxis123", c_float),
             ("speedAxis4", c_float),  
@@ -45,6 +47,8 @@ class simvrPacket(Structure):
         self.axis2 = 0.5  
         self.axis3 = 0.5
         self.axis4 = 0.5
+        self.axis5 = 0.5
+        self.axis6 = 0.5
         self.speedAxis123 = 1.0
         self.accelAxis123 = 0.5
         self.speedAxis4 = 1.0

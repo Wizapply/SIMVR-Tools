@@ -8,6 +8,8 @@
 #include "CoreUObject.h"
 #include "ISIMVRPlugin.generated.h"
 
+DECLARE_LOG_CATEGORY_EXTERN(SIMVRLog, Log, All);
+
 //Struct
 USTRUCT(BlueprintType)
 struct FSIMVRPacket
@@ -19,6 +21,8 @@ struct FSIMVRPacket
 	float axis2;
 	float axis3;
 	float axis4;
+	float axis5;
+	float axis6;
 
 	//Axis speed/accel controls
 	float speedAxis123;

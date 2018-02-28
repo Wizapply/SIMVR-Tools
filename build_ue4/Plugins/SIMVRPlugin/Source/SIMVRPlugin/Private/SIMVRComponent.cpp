@@ -17,15 +17,17 @@ USIMVRComponent::USIMVRComponent()
 	Sway = 0.0f;
 	Surge = 0.0f;
 	Speed = 1.0f;
-	Acceleration = 1.0f;
+	Acceleration = 0.5f;
 	SpeedYaw = 1.0f;
-	AccelerationYaw = 1.0f;
+	AccelerationYaw = 0.5f;
 
 	AxisProcessing = true;
 	Axis1Value = 0.5f;
 	Axis2Value = 0.5f;
 	Axis3Value = 0.5f;
 	Axis4Value = 0.5f;
+	Axis5Value = 0.5f;
+	Axis6Value = 0.5f;
 
 	RotationMotionRatio = 0.3f;
 	GravityMotionRatio = 0.7f;
@@ -70,6 +72,8 @@ void USIMVRComponent::TickComponent( float DeltaTime, ELevelTick TickType, FActo
 		p.axis2 = Axis2Value;
 		p.axis3 = Axis3Value;
 		p.axis4 = Axis4Value;
+		p.axis5 = Axis5Value;
+		p.axis6 = Axis6Value;
 	}
 
 	p.rotationMotionRatio = RotationMotionRatio;
