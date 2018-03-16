@@ -87,14 +87,14 @@ void USIMVRMover::TickComponent( float DeltaTime, ELevelTick TickType, FActorCom
 		saveHeave = Controller->Heave = ToRoundDown((heave.X + heave.Y + heave.Z) * wscale.Z, 2);
 
 		//YAW_G calc
-		float yaws = FMath::FindDeltaAngle(TrackingTarget->GetTransform().GetRotation().Euler().Z, previousYaw) / 10.0f * wscale.W;	//+-10度 = +-1.0
+		float yaws = FMath::FindDeltaAngle(-TrackingTarget->GetTransform().GetRotation().Euler().Z, previousYaw) / 10.0f * wscale.W;	//+-10度 = +-1.0
 		previousYaw = TrackingTarget->GetTransform().GetRotation().Euler().Z;
 		//YAW_G
 		saveYaw = Controller->Yaw = ToRoundDown(yaws, 2);
 
 		//Roll, Pitch
-		float rolls = FMath::FindDeltaAngle(TrackingTarget->GetTransform().GetRotation().Euler().X, 0.0f) / 10.0f;	//+-10度
-		float pitchs = FMath::FindDeltaAngle(TrackingTarget->GetTransform().GetRotation().Euler().Y, 0.0f) / 10.0f;	//+-10度
+		float rolls = FMath::FindDeltaAngle(-TrackingTarget->GetTransform().GetRotation().Euler().X, 0.0f) / 10.0f;		//+-10度
+		float pitchs = FMath::FindDeltaAngle(-TrackingTarget->GetTransform().GetRotation().Euler().Y, 0.0f) / 10.0f;	//+-10度
 
 		saveRoll = Controller->Roll = ToRoundDown(rolls, 2);
 		savePitch = Controller->Pitch = ToRoundDown(pitchs, 2);

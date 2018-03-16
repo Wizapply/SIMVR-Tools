@@ -67,7 +67,7 @@ void USIMVRComponent::TickComponent( float DeltaTime, ELevelTick TickType, FActo
 	p.speedAxis4 = SpeedYaw;
 	p.accelAxis4 = AccelerationYaw;
 
-	if (AxisProcessing) {
+	if (!AxisProcessing) {
 		p.axis1 = Axis1Value;
 		p.axis2 = Axis2Value;
 		p.axis3 = Axis3Value;
