@@ -4,7 +4,7 @@ namespace UnrealBuildTool.Rules
 {
 	public class SIMVRPlugin : ModuleRules
 	{
-		public SIMVRPlugin(TargetInfo Target)
+		public SIMVRPlugin(ReadOnlyTargetRules Target) : base(Target)
 		{
 			PublicIncludePaths.AddRange(
 				new string[] {
@@ -24,7 +24,6 @@ namespace UnrealBuildTool.Rules
 					"Engine",
 					"Core",
 					"CoreUObject",
-					"Projects",
 				}
 				);
 
