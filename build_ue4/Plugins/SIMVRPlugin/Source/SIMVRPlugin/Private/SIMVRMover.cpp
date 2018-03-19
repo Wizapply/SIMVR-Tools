@@ -123,6 +123,6 @@ float USIMVRMover::ToRoundDown(float dValue, int iDigits)
 {
 	float dCoef = FMath::Pow(10, iDigits);
 
-	return dValue > 0 ? FMath::Floor(dValue * dCoef) / dCoef :
-		FMath::Ceil(dValue * dCoef) / dCoef;
+	return dValue > 0 ? FMath::FloorToFloat(dValue * dCoef) / dCoef :
+		FMath::CeilToFloat(dValue * dCoef) / dCoef;
 }
