@@ -13,8 +13,8 @@ class USIMVRMover : public UActorComponent
 
 private:
 	USIMVRComponent* Controller;
+	FTimerHandle TimerHandle;
 
-	float currTime;
 	FVector previousPos;
 	FVector previousVec;
 	float previousYaw;
@@ -39,7 +39,9 @@ public:
 	virtual void EndPlay(const EEndPlayReason::Type EndPlayReason) override;
 
 	// Called every frame
-	virtual void TickComponent( float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction ) override;
+	//virtual void TickComponent( float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction ) override;
+	UFUNCTION()
+	void UpdateComponentSIMVR();
 
 	UPROPERTY(BlueprintReadWrite, Category = "Target Setting", EditAnywhere)
 		AActor* TrackingTarget;

@@ -8,16 +8,13 @@ USIMVRMover::USIMVRMover()
 {
 	// Set this component to be initialized when the game starts, and to be ticked every frame.  You can turn these features
 	// off to improve performance if you don't need them.
-	PrimaryComponentTick.bCanEverTick = true;
+	PrimaryComponentTick.bCanEverTick = false;
 
 	Controller = nullptr;
 	TrackingTarget = nullptr;
 
-	updateTime = 0.032f;
+	updateTime = 0.08f;
 	wscale = FVector4(1.0f, 1.0f, 1.0f, 1.0f);
-
-	//private var
-	currTime = 0;
 }
 
 
@@ -36,80 +33,80 @@ void USIMVRMover::BeginPlay()
 		return;
 	}
 
-	currTime = updateTime;
 	previousPos = TrackingTarget->GetTransform().GetLocation();
 	previousYaw = 0.0f;
-
 	previousVec = FVector(0.0f, 0.0f, 0.0f);
-
 	saveRoll = savePitch = saveYaw = saveHeave = saveSway = saveSurge = 0.0f;
+
+	GetWorld()->GetTimerManager().SetTimer(TimerHandle, this, &USIMVRMover::UpdateComponentSIMVR, updateTime, true, 1.0f);
 }
 
 void USIMVRMover::EndPlay(const EEndPlayReason::Type EndPlayReason)
 {
 	Super::EndPlay(EndPlayReason);
+
+	GetWorld()->GetTimerManager().ClearTimer(TimerHandle);
 }
 
 // Called every frame
-void USIMVRMover::TickComponent( float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction )
+void USIMVRMover::UpdateComponentSIMVR()
 {
-	Super::TickComponent( DeltaTime, TickType, ThisTickFunction );
-
 	if (Controller == nullptr)
 		return;
 	if (TrackingTarget == nullptr)
 		return;
+	
+	FVector vec = TrackingTarget->GetActorLocation() - previousPos;
+	previousPos = TrackingTarget->GetActorLocation();
+	
+	FVector vecChange = vec - previousVec;
+	previousVec = vec;
 
-	currTime -= DeltaTime;
-	if (currTime <= 0.0f)
-	{
-		FVector vec = TrackingTarget->GetTransform().GetLocation() - previousPos;
-		previousPos = TrackingTarget->GetTransform().GetLocation();
+	//G_calc
+	FVector surge, sway, heave;
+	surge.X = vecChange.X * TrackingTarget->GetActorForwardVector().X;
+	surge.Y = vecChange.Y * TrackingTarget->GetActorForwardVector().Y;
+	surge.Z = vecChange.Z * TrackingTarget->GetActorForwardVector().Z;
+	sway.X = vecChange.X * TrackingTarget->GetActorRightVector().X;
+	sway.Y = vecChange.Y * TrackingTarget->GetActorRightVector().Y;
+	sway.Z = vecChange.Z * TrackingTarget->GetActorRightVector().Z;
+	heave.X = vecChange.X * TrackingTarget->GetActorUpVector().X;
+	heave.Y = vecChange.Y * TrackingTarget->GetActorUpVector().Y;
+	heave.Z = vecChange.Z * TrackingTarget->GetActorUpVector().Z;
 
-		FVector vecChange = vec - previousVec;
-		previousVec = vec;
+	//G
+	saveSurge += ToRoundDown((surge.X + surge.Y + surge.Z) * wscale.X, 2);
+	saveSway +=  ToRoundDown((sway.X + sway.Y + sway.Z) * wscale.Y, 2);
+	saveHeave += ToRoundDown((heave.X + heave.Y + heave.Z) * wscale.Z, 2);
+		
+	//YAW_G calc
+	float yaws = FMath::FindDeltaAngle(-TrackingTarget->GetActorRotation().Euler().Z, previousYaw) / 10.0f * wscale.W;	//+-10度 = +-1.0
+	previousYaw = -TrackingTarget->GetActorRotation().Euler().Z;
+	//YAW_G
+	saveYaw += ToRoundDown(yaws, 2);
 
-		//G_calc
-		FVector surge, sway, heave;
-		surge.X = vecChange.X * TrackingTarget->GetActorForwardVector().X;
-		surge.Y = vecChange.Y * TrackingTarget->GetActorForwardVector().Y;
-		surge.Z = vecChange.Z * TrackingTarget->GetActorForwardVector().Z;
-		sway.X = vecChange.X * TrackingTarget->GetActorRightVector().X;
-		sway.Y = vecChange.Y * TrackingTarget->GetActorRightVector().Y;
-		sway.Z = vecChange.Z * TrackingTarget->GetActorRightVector().Z;
-		heave.X = vecChange.X * TrackingTarget->GetActorUpVector().X;
-		heave.Y = vecChange.Y * TrackingTarget->GetActorUpVector().Y;
-		heave.Z = vecChange.Z * TrackingTarget->GetActorUpVector().Z;
+	//Roll, Pitch
+	float rolls = FMath::FindDeltaAngle(-TrackingTarget->GetActorRotation().Euler().X, 0.0f) / 10.0f;		//+-10度
+	float pitchs = FMath::FindDeltaAngle(-TrackingTarget->GetActorRotation().Euler().Y, 0.0f) / 10.0f;	//+-10度
+	saveRoll = ToRoundDown(rolls, 2);
+	savePitch = ToRoundDown(pitchs, 2);
 
-		//G
-		saveSurge = Controller->Surge = ToRoundDown((surge.X + surge.Y + surge.Z) * wscale.X, 2);
-		saveSway = Controller->Sway = ToRoundDown((sway.X + sway.Y + sway.Z) * wscale.Y, 2);
-		saveHeave = Controller->Heave = ToRoundDown((heave.X + heave.Y + heave.Z) * wscale.Z, 2);
+	Controller->Roll = saveRoll;
+	Controller->Pitch = savePitch;
+	Controller->Yaw = saveYaw;
+	Controller->Heave = saveHeave;
+	Controller->Sway = saveSway;
+	Controller->Surge = saveSurge;
 
-		//YAW_G calc
-		float yaws = FMath::FindDeltaAngle(-TrackingTarget->GetTransform().GetRotation().Euler().Z, previousYaw) / 10.0f * wscale.W;	//+-10度 = +-1.0
-		previousYaw = TrackingTarget->GetTransform().GetRotation().Euler().Z;
-		//YAW_G
-		saveYaw = Controller->Yaw = ToRoundDown(yaws, 2);
+	//UE_LOG(LogTemp, Log, TEXT("pos %f,%f,%f"), saveSurge, saveSway, saveHeave);
 
-		//Roll, Pitch
-		float rolls = FMath::FindDeltaAngle(-TrackingTarget->GetTransform().GetRotation().Euler().X, 0.0f) / 10.0f;		//+-10度
-		float pitchs = FMath::FindDeltaAngle(-TrackingTarget->GetTransform().GetRotation().Euler().Y, 0.0f) / 10.0f;	//+-10度
+	//G Half-life
+	saveYaw *= 0.5f;
+	saveHeave *= 0.5f;
+	saveSway *= 0.5f;
+	saveSurge *= 0.5f;
 
-		saveRoll = Controller->Roll = ToRoundDown(rolls, 2);
-		savePitch = Controller->Pitch = ToRoundDown(pitchs, 2);
-
-		currTime = updateTime;
-	}
-	else {
-		Controller->Roll = saveRoll;
-		Controller->Pitch = savePitch;
-		Controller->Yaw = saveYaw;
-		Controller->Heave = saveHeave;
-		Controller->Sway = saveSway;
-		Controller->Surge = saveSurge;
-	}
-
+	//Force power
 	Controller->Roll += RollForce;
 	Controller->Pitch += PitchForce;
 	Controller->Yaw += YawForce;
