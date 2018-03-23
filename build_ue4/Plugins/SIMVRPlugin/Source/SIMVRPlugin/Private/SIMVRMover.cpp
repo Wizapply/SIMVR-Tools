@@ -28,14 +28,17 @@ void USIMVRMover::BeginPlay()
 		UE_LOG(SIMVRLog, Warning, TEXT("%s"), L"There is no SIMVRComponent. Please add SIMVRComponent.");
 		return;
 	}
-	if (TrackingTarget == nullptr) {
+	if (TrackingTarget != nullptr) {
+		previousPos = TrackingTarget->GetActorLocation();
+		previousYaw = -TrackingTarget->GetActorRotation().Euler().Z;
+		previousVec = FVector(0.0f, 0.0f, 0.0f);
+	}else{
 		UE_LOG(SIMVRLog, Warning, TEXT("%s"), L"TrackingTarget value is not specified.");
-		return;
+		previousPos = FVector(0.0f, 0.0f, 0.0f);
+		previousYaw = 0.0f;
+		previousVec = FVector(0.0f, 0.0f, 0.0f);
 	}
 
-	previousPos = TrackingTarget->GetTransform().GetLocation();
-	previousYaw = 0.0f;
-	previousVec = FVector(0.0f, 0.0f, 0.0f);
 	saveRoll = savePitch = saveYaw = saveHeave = saveSway = saveSurge = 0.0f;
 
 	GetWorld()->GetTimerManager().SetTimer(TimerHandle, this, &USIMVRMover::UpdateComponentSIMVR, updateTime, true, 1.0f);
