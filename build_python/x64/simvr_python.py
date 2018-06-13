@@ -64,8 +64,9 @@ class simvrPacket(Structure):
         self.commandCount = 0 
 
 # Load dll
-simvrlib = cdll.LoadLibrary("./simvr.dll");
-#simvrlib = cdll.LoadLibrary("./libsimvr.so"); #Linux
+simvrlib = cdll.LoadLibrary("./simvr.dll");			#Windows
+#simvrlib = cdll.LoadLibrary("./libsimvr.dylib");	#Mac
+#simvrlib = cdll.LoadLibrary("./libsimvr.so"); 		#Linux
 simvrIsOpen = False
 
 # Methods
@@ -99,6 +100,7 @@ def simvrUpdateBackLog() :
     
     size = simvrlib.simvrGetBackLogSize();
     if(size > 0) :
+        simvrlib.simvrGetBackLog.restype = c_char_p;    #for unix
         p = create_string_buffer(size)
         simbuffer = cast(simvrlib.simvrGetBackLog(),c_char_p)
         memmove(p, simbuffer, size)
@@ -111,6 +113,7 @@ def simvrUpdateState() :
     global simvrlib
     
     stateNo = simvrlib.simvrGetState();
+
     #State
     if(stateNo != -1 and stateNo != Running and stateNo != StopActuator) :
         return False
@@ -135,7 +138,6 @@ def simvrUpdateSIMVR(roll, pitch, yaw) :
 
 #---------------------------------------------------
 # Main Program
-
 simvrAwake("")
 print "SIMVR-START..."
 
@@ -144,17 +146,16 @@ time.sleep(1) #wait
 simvrlib.simvrSetOriginMode(False)
 simvrlib.simvrSetAxisProcessingMode(True)
 
-
 simvrUpdateBackLog()
 
 print "This program can change ROLL, PITCH, YAW of SIMVR. \nSpecification value [-1.0 to 1.0]. And, this is ended in an [exit] input."
 
 while(simvrUpdateState()) :
-    rolldata = raw_input('ROLL >> ')	#python3 = input(*)
+    rolldata = eval(input('ROLL >> '))
     if(rolldata == 'exit') : break
-    pitchdata = raw_input('PITCH >> ')
+    pitchdata = eval(input('PITCH >> '))
     if(pitchdata == 'exit') : break
-    yawdata = raw_input('YAW >> ')
+    yawdata = eval(input('YAW >> '))
     if(yawdata == 'exit') : break
     
     simvrUpdateSIMVR(float(rolldata), float(pitchdata), float(yawdata))
