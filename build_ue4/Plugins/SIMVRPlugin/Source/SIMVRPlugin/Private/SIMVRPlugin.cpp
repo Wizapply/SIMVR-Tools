@@ -2,9 +2,9 @@
 
 
 #include "SIMVRPluginPrivatePCH.h"
+#define WIN32_LEAN_AND_MEAN
 #include <windows.h>
 #include <stdlib.h>	// for mbstowcs_s(), wcstombs_s()
-#include <locale.h>	// for setlocale()
 
 DEFINE_LOG_CATEGORY(SIMVRLog);
 
@@ -99,8 +99,6 @@ void FSIMVRPlugin::StartupModule()
 		simvrClearBackLog = reinterpret_cast<simvrClearBackLog_ptr>(::GetProcAddress(hLibrary, "simvrClearBackLog"));
 		simvrGetBackLogSize = reinterpret_cast<simvrGetBackLogSize_ptr>(::GetProcAddress(hLibrary, "simvrGetBackLogSize"));
 		simvrIsRunning = reinterpret_cast<simvrIsRunning_ptr>(::GetProcAddress(hLibrary, "simvrIsRunning"));
-
-		setlocale(LC_ALL, "japanese");
 
 		isDllLoaded = true;
 	}
