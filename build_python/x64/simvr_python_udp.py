@@ -1,6 +1,7 @@
 # -*- coding: cp932 -*-
 # Import
 from ctypes import *
+from socket import *
 import time
 
 # Status Define
@@ -15,6 +16,13 @@ ShutDownActuator = 7
 Pause = 8
 CanNotCertificate = 9
 CalibrationRetry = 10
+
+HOST = ''
+PORT = 4000
+ADDRESS = "127.0.0.1"
+
+sc = socket(AF_INET, SOCK_DGRAM)
+sc.bind((HOST, PORT))
 
 # Simvr Data Packet
 class simvrPacket(Structure):  
@@ -138,8 +146,8 @@ def simvrUpdateSIMVR(roll, pitch, yaw) :
 
 #---------------------------------------------------
 # Main Program
-simvrAwake("FREESIMVRPROGRAM")
-print("SIMVR-START...")
+simvrAwake("")
+print ("SIMVR-START...")
 
 time.sleep(1) #wait
 
@@ -151,17 +159,22 @@ simvrUpdateBackLog()
 print("This program can change ROLL, PITCH, YAW of SIMVR. \nSpecification value [-1.0 to 1.0]. And, this is ended in an [exit] input.")
 
 while(simvrUpdateState()) :
-    rolldata = input('ROLL >> ')
-    if(rolldata == 'exit') : break
-    pitchdata = input('PITCH >> ')
-    if(pitchdata == 'exit') : break
-    yawdata = input('YAW >> ')
-    if(yawdata == 'exit') : break
-    
+    rolldata = 0.0
+    pitchdata = 0.0
+    yawdata = 0.0
+
+    try:
+        data, addr = sc.recvfrom(256)
+        res = struct.unpack('>ff', data)
+        print(res)
+    except socket.error:
+        print("UDP ERROR")
+        break
+
     simvrUpdateSIMVR(float(rolldata), float(pitchdata), float(yawdata))
-    print("SIMVR RUN")
     
 print("SIMVR-SHUTDOWN")
 
 simvrDestroy()
+sc.close()
 #---------------------------------------------------

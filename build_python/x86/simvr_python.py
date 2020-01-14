@@ -138,7 +138,7 @@ def simvrUpdateSIMVR(roll, pitch, yaw) :
 
 #---------------------------------------------------
 # Main Program
-simvrAwake("")
+simvrAwake("FREESIMVRPROGRAM")
 print("SIMVR-START...")
 
 time.sleep(1) #wait
@@ -151,11 +151,11 @@ simvrUpdateBackLog()
 print("This program can change ROLL, PITCH, YAW of SIMVR. \nSpecification value [-1.0 to 1.0]. And, this is ended in an [exit] input.")
 
 while(simvrUpdateState()) :
-    rolldata = eval(input('ROLL >> '))
+    rolldata = input('ROLL >> ')
     if(rolldata == 'exit') : break
-    pitchdata = eval(input('PITCH >> '))
+    pitchdata = input('PITCH >> ')
     if(pitchdata == 'exit') : break
-    yawdata = eval(input('YAW >> '))
+    yawdata = input('YAW >> ')
     if(yawdata == 'exit') : break
     
     simvrUpdateSIMVR(float(rolldata), float(pitchdata), float(yawdata))
