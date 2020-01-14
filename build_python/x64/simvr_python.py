@@ -78,7 +78,7 @@ def simvrAwake(appCode) :
     if(simvrlib.simvrOpen(appCode) == 0):
         simvrIsOpen = True
     else:
-        print "SIMVR DLL ERROR!"
+        print("SIMVR DLL ERROR!")
 
 def simvrDestroy() :
     global simvrIsOpen
@@ -100,13 +100,13 @@ def simvrUpdateBackLog() :
     
     size = simvrlib.simvrGetBackLogSize();
     if(size > 0) :
-        simvrlib.simvrGetBackLog.restype = c_char_p;    #for unix
+        simvrlib.simvrGetBackLog.restype = c_char_p    #for unix
         p = create_string_buffer(size)
         simbuffer = cast(simvrlib.simvrGetBackLog(),c_char_p)
         memmove(p, simbuffer, size)
-        simvrbufferString = p.value;
-        print simvrbufferString.rstrip("\n")
-        simvrlib.simvrClearBackLog();
+        simvrbufferString = p.value.decode()
+        print(simvrbufferString.rstrip("\n"))
+        simvrlib.simvrClearBackLog()
 
 def simvrUpdateState() :
     global simvrIsOpen
@@ -139,7 +139,7 @@ def simvrUpdateSIMVR(roll, pitch, yaw) :
 #---------------------------------------------------
 # Main Program
 simvrAwake("")
-print "SIMVR-START..."
+print("SIMVR-START...")
 
 time.sleep(1) #wait
 
@@ -148,7 +148,7 @@ simvrlib.simvrSetAxisProcessingMode(True)
 
 simvrUpdateBackLog()
 
-print "This program can change ROLL, PITCH, YAW of SIMVR. \nSpecification value [-1.0 to 1.0]. And, this is ended in an [exit] input."
+print("This program can change ROLL, PITCH, YAW of SIMVR. \nSpecification value [-1.0 to 1.0]. And, this is ended in an [exit] input.")
 
 while(simvrUpdateState()) :
     rolldata = eval(input('ROLL >> '))
@@ -159,9 +159,9 @@ while(simvrUpdateState()) :
     if(yawdata == 'exit') : break
     
     simvrUpdateSIMVR(float(rolldata), float(pitchdata), float(yawdata))
-    print "SIMVR RUN"
+    print("SIMVR RUN")
     
-print "SIMVR-SHUTDOWN"
+print("SIMVR-SHUTDOWN")
 
 simvrDestroy()
 #---------------------------------------------------

@@ -1,4 +1,4 @@
-/**************************************************************************
+﻿/**************************************************************************
 *
 *              Copyright (c) 2014-2016 by Wizapply.
 *
@@ -83,7 +83,7 @@ bool updateSIMVRStatus()
 int main(int argc, char *argv[])
 {
 	g_pSIMVRSystem = new SIMVRSDK::SIMVR();
-	g_pSIMVRSystem->Open("");
+	g_pSIMVRSystem->Open("FREESIMVRPROGRAM");
 
 	std::cout << "SIMVR-START..." << std::endl;
 
@@ -94,7 +94,7 @@ int main(int argc, char *argv[])
 
 	auto packet = DefaultPacket();
 
-	std::cout << "This program can change ROLL, PITCH, YAW of SIMVR. \nSpecification value [-1.0 to 1.0]. And, this is ended in an [exit] input. " << std::endl;
+	std::cout << "This program can change ROLL, PITCH, YAW of the SIMVR. \nSpecification value [-1.0 to 1.0]. To exit, input [exit]." << std::endl;
 
 	while (updateSIMVRStatus())
 	{

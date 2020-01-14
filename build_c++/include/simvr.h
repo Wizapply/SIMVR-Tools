@@ -85,7 +85,7 @@ typedef struct _simvr_data_packet
 
 struct Property;
 
-#define SIMVR_SDKVERSION "1.0.3"
+#define SIMVR_SDKVERSION "1.1.0"
 
 class SIMVRPORT SIMVR
 {
@@ -130,6 +130,8 @@ public:
 	void DisableButtonEvent();
 	const char* GetVersion() const;
 	bool IsRunning() const;
+
+	int GetStatusEXT4() const;
 
 private:
 	void Update(SIMVRDataPacket& packet);
