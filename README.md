@@ -36,7 +36,10 @@ Windows 10未満をご利用の場合は、`/driver/wizcdc.inf`ファイルを�
 [デジタル署名のないドライバをインストールする方法](http://www.personal-media.co.jp/utronkb/support/install_sig_win8.html)  
 
 ### データダウンロード方法
-GitHub右上ボタンよりダウンロード可能  
+リリースよりダウンロード  
+[**リリース最新版をダウンロード**](https://github.com/Wizapply/SIMVR-Tools/releases) 
+
+若しくはGitHub右上ボタンよりクローンかダウンロード  
 ![WizapplySS001](resources/screenshot_001.png)  
 
 ### 実行・セットアップ
