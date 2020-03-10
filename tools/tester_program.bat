@@ -1,1 +1,1 @@
-simvr_tester.exe 1500 1 1 1 0.8 0.8
+simvr_tester.exe 1500 -1 -1 -1 -1 -1 -1 0.8 0.8
