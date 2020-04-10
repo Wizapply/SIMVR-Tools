@@ -1,5 +1,8 @@
 SIMVR-TOOLS
 ==================
+
+![simvrtools](wiki/resources/simvrtools.jpg) 
+
 SIMVRとは、VR(ヴァーチャルリアリティ)HMDに特化した多軸モーションシミュレータシステムです。ピッチ・ヨー・ロールの3軸回転にヒーブの上下揺れを加えた動きが可能で、様々なアタッチメント用いて、多岐にわたるVRシミュレータ用途に対応します。ここでは、SIMVR用のアプリケーションを開発するためのツール・プログラムがあります。  
 
 ライセンスされたSIMVR用で、SIMVRが同時稼働1台につき1ライセンス必要です。追加ライセンス希望の方は[お問い合わせ先](#お問い合わせ先)までご連絡くださいますようお願い致します。 
@@ -53,9 +56,9 @@ Windows 10未満をご利用の場合は、`/driver/wizcdc.inf`ファイルを�
 開発しているアプリケーションを認証するには[**SIMVRキーのオンライン発行**](http://simvr01.com/simvrkeygen/)でキーを取得してください。  
 
 ## エミュレータについて
-![WizapplySS010](resources/screenshot_010.png)  
+[![WizapplySS010](resources/screenshot_010.png)](https://github.com/Wizapply/SIMVR-Tools/tree/master/tools/simvr_emulator)   
 エミュレータは実機が無くても動作確認ができるシステムです。  
-「tools」内の「simvr_emulator」をご確認ください。
+「tools」内の「[**simvr_emulator**](https://github.com/Wizapply/SIMVR-Tools/tree/master/tools/simvr_emulator)」をご確認ください。
 
 ## お問い合わせ先
 これらGitHubにアップロードされている全てのファイルについてご質問・ご報告は、下記ご連絡先までご確認ください。
