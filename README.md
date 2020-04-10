@@ -1,7 +1,7 @@
 SIMVR-TOOLS
 ==================
 
-![simvrtools](wiki/resources/simvrtools.jpg) 
+![simvrtools](resources/simvrtools.jpg) 
 
 SIMVRとは、VR(ヴァーチャルリアリティ)HMDに特化した多軸モーションシミュレータシステムです。ピッチ・ヨー・ロールの3軸回転にヒーブの上下揺れを加えた動きが可能で、様々なアタッチメント用いて、多岐にわたるVRシミュレータ用途に対応します。ここでは、SIMVR用のアプリケーションを開発するためのツール・プログラムがあります。  
 
