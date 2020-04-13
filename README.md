@@ -9,8 +9,8 @@ SIMVRとは、VR(ヴァーチャルリアリティ)HMDに特化した多軸モ�
 
 また、プログラムに不具合がございまいたらご報告いただければ幸いです。
 
-* SIMVR製品ページ ： http://simvr01.com
-* SIMVR 6DOF製品ページ： http://6dof.simvr01.com/
+* SIMVR製品ページ ： <https://simvr.wizapply.com/>
+* SIMVR 6DOF製品ページ： <https://simvr6dof.wizapply.com/>
 
 ## フォルダ構成
 * `/build_c++` : C++(VisualStudio 2015, CMAKE)で開発可能なInclude、DLLファイル群
@@ -68,4 +68,4 @@ WIZAPPLY株式会社
 大阪府大阪市港区市岡元町３－７－１０　KSビル５F  
 E-Mail : info@wizapply.com  
 TEL : 06-4400-6308  
-Web : <http://wizapply.com>  
+Web : <https://wizapply.com>  
