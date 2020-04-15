@@ -17,6 +17,7 @@ SIMVRとは、VR(ヴァーチャルリアリティ)HMDに特化した多軸モ�
 * `/build_python` : Python2で開発可能なpyファイル群
 * `/build_unity5` : Unity5で開発可能なUnityPackageファイル
 * `/build_ue4` : 最新UnrealEngine4で開発可能なプラグイン及びプロジェクト群
+* `/cad_datas` : SIMVR用の筐体CAD情報
 * `/tools` : SIMVR用のツール
 * `/demo` : SIMVRの動作を確認するためのサンプルデモゲーム群
 * `/driver` : SIMVR USB-CDCドライバ
