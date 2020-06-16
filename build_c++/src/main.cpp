@@ -49,9 +49,9 @@ SIMVRSDK::SIMVRDataPacket DefaultPacket()
 	packet.axis6 = 0.5f;
 
 	//Axis speed/accel controls
-	packet.speedAxis123 = 1.0f;
+	packet.speedAxis123 = 0.8f;
 	packet.accelAxis123 = 0.5f;
-	packet.speedAxis4 = 1.0f;
+	packet.speedAxis4 = 0.8f;
 	packet.accelAxis4 = 0.5f;
 
 	//Axis Processing
@@ -70,24 +70,14 @@ SIMVRSDK::SIMVRDataPacket DefaultPacket()
 	return packet;
 }
 
-bool updateSIMVRStatus()
-{
-	int stateNo = g_pSIMVRSystem->GetState();
-	if (stateNo != -1 && stateNo != (int)SIMVRSDK::State::Running && stateNo != (int)SIMVRSDK::State::StopActuator)
-	{
-		return false;
-	}
-	return true;
-}
-
 int main(int argc, char *argv[])
 {
 	g_pSIMVRSystem = new SIMVRSDK::SIMVR();
-	g_pSIMVRSystem->Open("FREESIMVRPROGRAM");
+	g_pSIMVRSystem->Open("");
 
 	std::cout << "SIMVR-START..." << std::endl;
 
-	std::this_thread::sleep_for(std::chrono::seconds(1));
+	std::this_thread::sleep_for(std::chrono::seconds(2));
 
 	g_pSIMVRSystem->SetOriginMode(false);
 	g_pSIMVRSystem->SetAxisProcessingMode(true);	//Axis mode
@@ -96,7 +86,7 @@ int main(int argc, char *argv[])
 
 	std::cout << "This program can change ROLL, PITCH, YAW of the SIMVR. \nSpecification value [-1.0 to 1.0]. To exit, input [exit]." << std::endl;
 
-	while (updateSIMVRStatus())
+	while (g_pSIMVRSystem->IsRunning())
 	{
 		std::string input;
 
@@ -128,9 +118,10 @@ int main(int argc, char *argv[])
 		g_pSIMVRSystem->Write(&packet);
 	}
 
-	std::cout << "SIMVR-SHUTDOWN" << std::endl;
-
 	delete g_pSIMVRSystem;
+
+	std::this_thread::sleep_for(std::chrono::milliseconds(500));
+	std::cout << "SIMVR-SHUTDOWN" << std::endl;
 
 	return 0;
 }
