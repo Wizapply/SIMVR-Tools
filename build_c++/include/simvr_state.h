@@ -28,16 +28,16 @@ namespace SIMVRSDK {
 
 	enum class State
 	{
-		Initial = 0,
-		CanNotFindUsb,
+		CanNotFindUsb = 0,
 		CanNotFindSimvr,
 		CanNotCalibration,
 		TimeoutCalibration,
+		ShutDownActuator,
+		CanNotCertificate,
+
+		Initial,
 		Running,
 		StopActuator,
-		ShutDownActuator,
-		Pause,
-		CanNotCertificate,
 		CalibrationRetry,
 	};
 

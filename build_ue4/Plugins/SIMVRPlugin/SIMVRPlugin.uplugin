@@ -6,10 +6,10 @@
 	"Description": "Wizapply SIMVR Tools Plugin.",
 	"Category": "MotionDevice",
 	"CreatedBy": "Wizapply",
-	"CreatedByURL": "http://simvr01.com",
+	"CreatedByURL": "https://simvr.wizapply.com",
 	"DocsURL": "https://github.com/Wizapply/SIMVR-Tools",
 	"MarketplaceURL": "",
-	"SupportURL": "http://wizapply.com",
+	"SupportURL": "https://wizapply.com",
 	"EnabledByDefault": true,
 	"CanContainContent": false,
 	"IsBetaVersion": false,
@@ -18,7 +18,10 @@
 		{
 			"Name": "SIMVRPlugin",
 			"Type": "Developer",
-			"LoadingPhase": "Default"
+			"LoadingPhase": "Default",
+			"WhitelistPlatforms": [
+				"Win64","Win32"
+			]
 		}
 	]
 }

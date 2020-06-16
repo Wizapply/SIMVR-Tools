@@ -126,8 +126,6 @@ public:
 	const char* GetSIMVRSerialNumber() const;
 
 	int GetState();
-	bool GetEnableButton() const;
-	void DisableButtonEvent();
 	const char* GetVersion() const;
 	bool IsRunning() const;
 
@@ -137,6 +135,10 @@ private:
 	void Update(SIMVRDataPacket& packet);
 	void ThreadUpdate();
 	void LogError();
+
+	void EmulatorStart();
+	void EmulatorStop();
+	void EmulatorUpdate(SIMVRDataPacket& packet);
 
 	Property* property;
 };
