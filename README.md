@@ -61,6 +61,13 @@ SIMVR1台にライセンスが付与されますので、所有者・利用者�
 エミュレータは実機が無くても動作確認ができるシステムです。  
 「tools」内の「[**simvr_emulator**](https://github.com/Wizapply/SIMVR-Tools/tree/master/tools/simvr_emulator)」をご確認ください。
 
+## シーケンサについて
+[![WizapplySS010](resources/screenshot_011.png)](https://github.com/Wizapply/SIMVR-Tools/tree/master/tools/simvr_sequencer)   
+シーケンサは動画やタイミングコマンドと連動した動きを付けるためのツール群です。  
+ゲームエンジンやプログラミングの難しい知識なしにSIMVRを使用できます。  
+「tools」内の「[**simvr_sequencer**](https://github.com/Wizapply/SIMVR-Tools/tree/master/tools/simvr_sequencer)」をご確認ください。
+
+
 ## お問い合わせ先
 これらGitHubにアップロードされている全てのファイルについてご質問・ご報告は、下記ご連絡先までご確認ください。
 
