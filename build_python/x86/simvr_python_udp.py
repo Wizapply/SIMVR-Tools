@@ -5,17 +5,16 @@ from socket import *
 import time
 
 # Status Define
-Initial = 0
-CanNotFindUsb = 1
-CanNotFindSimvr = 2
-CanNotCalibration = 3
-TimeoutCalibration = 4
-Running = 5
-StopActuator = 6
-ShutDownActuator = 7
-Pause = 8
-CanNotCertificate = 9
-CalibrationRetry = 10
+SimvrCanNotFindUsb = 0
+SimvrCanNotFindSimvr = 1
+SimvrCanNotCalibration = 2
+SimvrTimeoutCalibration = 3
+SimvrShutDownActuator = 4
+SimvrCanNotCertificate = 5
+SimvrInitial = 6
+SimvrRunning = 7
+SimvrStopActuator = 8
+SimvrCalibrationRetry = 9
 
 HOST = ''
 PORT = 4000
@@ -123,7 +122,7 @@ def simvrUpdateState() :
     stateNo = simvrlib.simvrGetState();
 
     #State
-    if(stateNo != -1 and stateNo != Running and stateNo != StopActuator) :
+    if(stateNo <= SimvrInitial) :
         return False
     return True
     
@@ -156,7 +155,9 @@ simvrlib.simvrSetAxisProcessingMode(True)
 
 simvrUpdateBackLog()
 
-print("This program can change ROLL, PITCH, YAW of SIMVR from UDP/IP\n")
+time.sleep(2) #wait
+if(simvrUpdateState()) : 
+    print("This program can change ROLL, PITCH, YAW of SIMVR from UDP/IP\n")
 
 while(simvrUpdateState()) :
     rolldata = 0.0
