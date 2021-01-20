@@ -63,9 +63,9 @@ class simvrPacket(Structure):
         self.commandCount = 0 
 
 # Load dll
-simvrlib = cdll.LoadLibrary("./simvr.dll");			#Windows
+#simvrlib = cdll.LoadLibrary("./simvr.dll");			#Windows
 #simvrlib = cdll.LoadLibrary("./libsimvr.dylib");	#Mac
-#simvrlib = cdll.LoadLibrary("./libsimvr.so"); 		#Linux
+simvrlib = cdll.LoadLibrary("./libsimvr.so"); 		#Linux
 simvrIsOpen = False
 
 # Methods
