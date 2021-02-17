@@ -1,9 +1,9 @@
-SIMVR-TOOLS (SIMVR SDK)
+SIMVR-TOOLS (SIMVR SDK, ANTSEAT SDK)
 ==================
 
 ![simvrtools](resources/simvrtools.jpg) 
 
-SIMVRとは、VR(ヴァーチャルリアリティ)HMDに特化した多軸モーションシミュレータシステムです。ピッチ・ヨー・ロールの3軸回転にヒーブの上下揺れを加えた動きが可能で、様々なアタッチメント用いて、多岐にわたるVRシミュレータ用途に対応します。ここでは、SIMVR用のアプリケーションを開発するためのツール・プログラムがあります。  
+SIMVR、ANTSEATとは、VR(ヴァーチャルリアリティ)HMDに特化した多軸モーションシミュレータシステムです。ピッチ・ヨー・ロールの3軸回転にヒーブの上下揺れを加えた動きが可能で、様々なアタッチメント用いて、多岐にわたるVRシミュレータ用途に対応します。ここでは、SIMVR用のアプリケーションを開発するためのツール・プログラムがあります。  
 
 ライセンスされたSIMVR用で、SIMVRが同時稼働1台につき1ライセンス必要です。追加ライセンス希望の方は[お問い合わせ先](#お問い合わせ先)までご連絡くださいますようお願い致します。 
 
@@ -11,6 +11,7 @@ SIMVRとは、VR(ヴァーチャルリアリティ)HMDに特化した多軸モ�
 
 * SIMVR製品ページ ： <https://simvr.wizapply.com/>
 * SIMVR 6DOF製品ページ： <https://simvr6dof.wizapply.com/>
+* ANTSEAT製品ページ： <https://antseat.wizapply.com/>
 
 ## フォルダ構成
 * `/build_c++` : C++(VisualStudio 2015, CMAKE)で開発可能なInclude、DLLファイル群
@@ -25,9 +26,9 @@ SIMVRとは、VR(ヴァーチャルリアリティ)HMDに特化した多軸モ�
 
 ## 必須動作環境
 * オペレーティングシステム : Windows 7以降、Linux 4.4.0以降
-* インターフェース : USB2.0ポート1つ以上
+* インターフェース : USB2.0ポート1つ以上、LAN環境
 
-※ SIMVRを動作させるためだけの環境であり、開発するVRなどのコンテンツ規模に合う**高性能パソコン**をご用意ください。Windows 10以降の場合、ドライバのインストールは必要ありません。
+※ 製品を動作させるためだけの環境であり、開発するVRなどのコンテンツ規模に合う**高性能パソコン**をご用意ください。Windows 10以降の場合、ドライバのインストールは必要ありません。
 
 ## 使い方
 ### 機材の取扱いについてのご説明は[**説明書**](https://github.com/Wizapply/SIMVR-Tools/blob/master/SIMVR_Manual.pdf)をご確認ください。  
@@ -55,6 +56,7 @@ Windows 10未満をご利用の場合は、`/driver/wizcdc.inf`ファイルを�
 SIMVR1台にライセンスが付与されますので、所有者・利用者に制限はありません。  
 
 開発しているアプリケーションを認証するには[**SIMVRキーのオンライン発行**](http://simvr01.com/simvrkeygen/)でキーを取得してください。  
+※ANTSEATはアプリケーションの認証は必要ありません。  
 
 ## エミュレータについて
 [![WizapplySS010](resources/screenshot_010.png)](https://github.com/Wizapply/SIMVR-Tools/tree/master/tools/simvr_emulator)   

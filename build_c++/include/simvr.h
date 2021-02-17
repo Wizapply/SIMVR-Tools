@@ -85,7 +85,7 @@ typedef struct _simvr_data_packet
 
 struct Property;
 
-#define SIMVR_SDKVERSION "1.1.0"
+#define SIMVR_SDKVERSION "1.2.0"
 
 class SIMVRPORT SIMVR
 {
@@ -136,9 +136,9 @@ private:
 	void ThreadUpdate();
 	void LogError();
 
-	void EmulatorStart();
-	void EmulatorStop();
-	void EmulatorUpdate(SIMVRDataPacket& packet);
+	void LANStart();
+	void LANStop();
+	void LANUpdate(SIMVRDataPacket& packet);
 
 	Property* property;
 };
