@@ -77,7 +77,7 @@ int main(int argc, char *argv[])
 
 	std::cout << "SIMVR-START..." << std::endl;
 
-	std::this_thread::sleep_for(std::chrono::seconds(2));
+	std::this_thread::sleep_for(std::chrono::seconds(5));
 
 	g_pSIMVRSystem->SetOriginMode(false);
 	g_pSIMVRSystem->SetAxisProcessingMode(true);	//Axis mode

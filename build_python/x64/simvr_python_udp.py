@@ -3,21 +3,23 @@
 from ctypes import *
 from socket import *
 import time
+from enum import IntEnum
 
 # Status Define
-SimvrCanNotFindUsb = 0
-SimvrCanNotFindSimvr = 1
-SimvrCanNotCalibration = 2
-SimvrTimeoutCalibration = 3
-SimvrShutDownActuator = 4
-SimvrCanNotCertificate = 5
-SimvrInitial = 6
-SimvrRunning = 7
-SimvrStopActuator = 8
-SimvrCalibrationRetry = 9
+class simvrStatus(IntEnum):
+    CanNotFindUsb = 0
+    CanNotFindSimvr = 1
+    CanNotCalibration = 2
+    TimeoutCalibration = 3
+    ShutDownActuator = 4
+    CanNotCertificate = 5
+    Initial = 6
+    Running = 7
+    StopActuator = 8
+    CalibrationRetry = 9
 
 HOST = ''
-PORT = 4000
+PORT = 40000
 ADDRESS = "127.0.0.1"
 
 sc = socket(AF_INET, SOCK_DGRAM)
@@ -94,8 +96,8 @@ def simvrDestroy() :
     if(simvrIsOpen == False) :
         return
     
-    simvrlib.simvrClose()
     simvrUpdateBackLog()
+    simvrlib.simvrClose()
     simvrIsOpen = False
 
 def simvrUpdateBackLog() :
@@ -122,7 +124,7 @@ def simvrUpdateState() :
     stateNo = simvrlib.simvrGetState();
 
     #State
-    if(stateNo <= SimvrInitial) :
+    if(stateNo <= simvrStatus.Initial) :
         return False
     return True
     
@@ -155,7 +157,7 @@ simvrlib.simvrSetAxisProcessingMode(True)
 
 simvrUpdateBackLog()
 
-time.sleep(2) #wait
+time.sleep(5) #wait
 if(simvrUpdateState()) : 
     print("This program can change ROLL, PITCH, YAW of SIMVR from UDP/IP\n")
 

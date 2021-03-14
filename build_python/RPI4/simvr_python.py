@@ -147,7 +147,7 @@ simvrlib.simvrSetAxisProcessingMode(True)
 
 simvrUpdateBackLog()
 
-time.sleep(2) #wait
+time.sleep(5) #wait
 if(simvrUpdateState()) : 
     print("This program can change ROLL, PITCH, YAW of SIMVR. \nSpecification value [-1.0 to 1.0]. And, this is ended in an [exit] input.\n")
 
