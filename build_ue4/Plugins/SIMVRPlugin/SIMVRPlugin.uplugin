@@ -17,10 +17,11 @@
 	"Modules": [
 		{
 			"Name": "SIMVRPlugin",
-			"Type": "Developer",
+			"Type": "DeveloperTool",
 			"LoadingPhase": "Default",
 			"WhitelistPlatforms": [
-				"Win64","Win32"
+				"Win64",
+				"Win32"
 			]
 		}
 	]
