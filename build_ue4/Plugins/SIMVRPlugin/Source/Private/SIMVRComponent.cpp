@@ -29,8 +29,8 @@ USIMVRComponent::USIMVRComponent()
 	Axis5Value = 0.5f;
 	Axis6Value = 0.5f;
 
-	RotationMotionRatio = 0.3f;
-	GravityMotionRatio = 0.7f;
+	RotationMotionRatio = 0.8f;
+	GravityMotionRatio = 0.8f;
 
 	isOrigined = false;
 	isOpened = false;
