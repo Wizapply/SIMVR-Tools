@@ -2,18 +2,20 @@
 # Import
 from ctypes import *
 import time
+from enum import IntEnum
 
 # Status Define
-SimvrCanNotFindUsb = 0
-SimvrCanNotFindSimvr = 1
-SimvrCanNotCalibration = 2
-SimvrTimeoutCalibration = 3
-SimvrShutDownActuator = 4
-SimvrCanNotCertificate = 5
-SimvrInitial = 6
-SimvrRunning = 7
-SimvrStopActuator = 8
-SimvrCalibrationRetry = 9
+class simvrStatus(IntEnum):
+    CanNotFindUsb = 0
+    CanNotFindSimvr = 1
+    CanNotCalibration = 2
+    TimeoutCalibration = 3
+    ShutDownActuator = 4
+    CanNotCertificate = 5
+    Initial = 6
+    Running = 7
+    StopActuator = 8
+    CalibrationRetry = 9
 
 # Simvr Data Packet
 class simvrPacket(Structure):  
@@ -63,9 +65,9 @@ class simvrPacket(Structure):
         self.commandCount = 0 
 
 # Load dll
-#simvrlib = cdll.LoadLibrary("./simvr.dll");			#Windows
-#simvrlib = cdll.LoadLibrary("./libsimvr.dylib");	#Mac
-simvrlib = cdll.LoadLibrary("./libsimvr.so"); 		#Linux
+#simvrlib = cdll.LoadLibrary("./simvr.dll");        #Windows
+#simvrlib = cdll.LoadLibrary("./libsimvr.dylib");  #Mac
+simvrlib = cdll.LoadLibrary("./libsimvr.so");     #Linux
 simvrIsOpen = False
 
 # Methods
@@ -85,9 +87,10 @@ def simvrDestroy() :
     
     if(simvrIsOpen == False) :
         return
+
+    simvrUpdateBackLog()
     
     simvrlib.simvrClose()
-    simvrUpdateBackLog()
     simvrIsOpen = False
 
 def simvrUpdateBackLog() :
@@ -114,7 +117,7 @@ def simvrUpdateState() :
     stateNo = simvrlib.simvrGetState();
 
     #State
-    if(stateNo <= SimvrInitial) :
+    if(stateNo <= simvrStatus.Initial) :
         return False
     return True
     
