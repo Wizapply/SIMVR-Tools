@@ -97,9 +97,9 @@ public:
 
 	//Initialize
 	/*!	@brief Open the SIMVR System
-		@param serialNo Simvr SerialNumber
+		@param appCode : Appication Code(Not a serial number)
 		@return If successful, the return value is 0< */
-	int Open(const char* serialNo);
+	int Open(const char* appCode);
 	/*!	@brief Close the SIMVR System */
 	int Close();
 

@@ -27,6 +27,7 @@
 
 #include <simvr.h>	//SIMVR SDK
 #include <simvr_state.h>
+#include <simvr_log.h>
 
 #include <string>
 #include <iostream>
@@ -70,6 +71,19 @@ SIMVRSDK::SIMVRDataPacket DefaultPacket()
 	return packet;
 }
 
+void simvrUpdateBackLog() {
+
+	if (system == NULL)
+		return;
+
+	auto size = SIMVRSDK::Debug::GetBackLogSize();
+	if (size > 0) {
+		const char* p = SIMVRSDK::Debug::GetBackLog();
+		std::cout << "----- SIMVR LOG -----\n" << std::string(p) << "---------------------\n";
+		SIMVRSDK::Debug::ClearBackLog();
+	}
+}
+
 int main(int argc, char *argv[])
 {
 	g_pSIMVRSystem = new SIMVRSDK::SIMVR();
@@ -78,6 +92,8 @@ int main(int argc, char *argv[])
 	std::cout << "SIMVR-START..." << std::endl;
 
 	std::this_thread::sleep_for(std::chrono::seconds(5));
+
+	simvrUpdateBackLog();
 
 	g_pSIMVRSystem->SetOriginMode(false);
 	g_pSIMVRSystem->SetAxisProcessingMode(true);	//Axis mode
@@ -116,9 +132,12 @@ int main(int argc, char *argv[])
 
 		g_pSIMVRSystem->SetOriginMode(false);
 		g_pSIMVRSystem->Write(&packet);
+		simvrUpdateBackLog();
 	}
 
 	delete g_pSIMVRSystem;
+
+	simvrUpdateBackLog();
 
 	std::this_thread::sleep_for(std::chrono::milliseconds(500));
 	std::cout << "SIMVR-SHUTDOWN" << std::endl;
