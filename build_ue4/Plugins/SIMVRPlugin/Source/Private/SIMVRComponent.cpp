@@ -91,10 +91,13 @@ void USIMVRComponent::TickComponent( float DeltaTime, ELevelTick TickType, FActo
 void USIMVRComponent::OpenSIMVR()
 {
 	ISIMVRPlugin::Get().Open(TCHAR_TO_UTF8(*AppCode));
+	isOpened = true;
 }
 
 void USIMVRComponent::CloseSIMVR()
 {
 	ISIMVRPlugin::Get().Close();
 	ISIMVRPlugin::Get().UpdateBackLog();
+
+	isOpened = false;
 }

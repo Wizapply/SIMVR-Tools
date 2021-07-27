@@ -6,6 +6,8 @@
 #include "SIMVRComponent.h"
 #include "SIMVRMover.generated.h"
 
+class SIMVRMover_Status6DOF;
+
 UCLASS( ClassGroup=(SIMVRMover), meta=(BlueprintSpawnableComponent) )
 class USIMVRMover : public UActorComponent
 {
@@ -13,11 +15,13 @@ class USIMVRMover : public UActorComponent
 
 private:
 	USIMVRComponent* Controller;
-	FTimerHandle TimerHandle;
 
 	FVector previousPos;
 	FVector previousVec;
 	float previousYaw;
+	float currTime;
+
+	SIMVRMover_Status6DOF* Gcalc6Dof;
 
 	float saveRoll;
 	float savePitch;
@@ -39,16 +43,14 @@ public:
 	virtual void EndPlay(const EEndPlayReason::Type EndPlayReason) override;
 
 	// Called every frame
-	//virtual void TickComponent( float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction ) override;
-	UFUNCTION()
-	void UpdateComponentSIMVR();
+	virtual void TickComponent( float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction ) override;
 
 	UPROPERTY(BlueprintReadWrite, Category = "Target Setting", EditAnywhere)
 		AActor* TrackingTarget;
-	UPROPERTY(BlueprintReadWrite, Category = "Processing Setting", EditAnywhere, meta = (ClampMin = "0.0"))
+	UPROPERTY(BlueprintReadWrite, Category = "Processing Setting", EditAnywhere, meta = (ClampMin = "0.1", ClampMax = "10.0"))
 		float updateTime;
 	UPROPERTY(BlueprintReadWrite, Category = "Processing Setting", EditAnywhere)
-		FVector4 wscale;
+		FVector wscale;
 
 	//Rotation
 	UPROPERTY(BlueprintReadWrite, Category = "Force Rotation and G", EditAnywhere, meta = (ClampMin = "-1.0", ClampMax = "1.0", UIMin = "-1.0", UIMax = "1.0"))

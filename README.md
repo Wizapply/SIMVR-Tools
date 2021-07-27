@@ -16,7 +16,7 @@ SIMVR、ANTSEATとは、VR(ヴァーチャルリアリティ)HMDに特化した�
 ## フォルダ構成
 * `/build_c++` : C++(VisualStudio 2015, CMAKE)で開発可能なInclude、DLLファイル群
 * `/build_python` : Python2で開発可能なpyファイル群
-* `/build_unity5` : Unity5で開発可能なUnityPackageファイル
+* `/build_unity5` : Unity 2019以降で開発可能なUnityPackageファイル
 * `/build_ue4` : 最新UnrealEngine4で開発可能なプラグイン及びプロジェクト群
 * `/cad_datas` : SIMVR用の筐体CAD情報
 * `/tools` : SIMVR用のツール
@@ -47,7 +47,7 @@ Windows 10未満をご利用の場合は、`/driver/wizcdc.inf`ファイルを�
 ![WizapplySS001](resources/screenshot_001.png)  
 
 ### 実行・セットアップ
-実際の使い方・セットアップについては、[**SimVR-SDK Wiki**](https://github.com/Wizapply/SIMVR-Tools/wiki "SimVR-Tools Wiki")にまとめておりますので、そちらをご覧ください。  
+実際の使い方・セットアップについては、[**SIMVR-Tools Wiki**](https://github.com/Wizapply/SIMVR-Tools/wiki "SIMVR-Tools Wiki")にまとめておりますので、そちらをご覧ください。  
 [![WizapplySIMVR](resources/howtosimvr.jpg)](https://github.com/Wizapply/SIMVR-Tools/wiki)
 
 ## 開発向けライセンスについて
