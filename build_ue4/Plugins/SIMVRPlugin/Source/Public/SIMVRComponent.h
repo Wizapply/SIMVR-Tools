@@ -67,10 +67,6 @@ public:
 		float Speed;
 	UPROPERTY(BlueprintReadWrite, Category = "Configures", EditAnywhere, meta = (ClampMin = "0.0", ClampMax = "1.0", UIMin = "0.0", UIMax = "1.0"))
 		float Acceleration;
-	UPROPERTY(BlueprintReadWrite, Category = "Configures", EditAnywhere, meta = (ClampMin = "0.0", ClampMax = "1.0", UIMin = "0.0", UIMax = "1.0"))
-		float SpeedYaw;
-	UPROPERTY(BlueprintReadWrite, Category = "Configures", EditAnywhere, meta = (ClampMin = "0.0", ClampMax = "1.0", UIMin = "0.0", UIMax = "1.0"))
-		float AccelerationYaw;
 
 	UPROPERTY(BlueprintReadWrite, Category = "Configures", EditAnywhere, meta = (ClampMin = "0.0", ClampMax = "1.0", UIMin = "0.0", UIMax = "1.0"))
 		float RotationMotionRatio;

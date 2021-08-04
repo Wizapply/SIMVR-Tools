@@ -18,8 +18,6 @@ USIMVRComponent::USIMVRComponent()
 	Surge = 0.0f;
 	Speed = 1.0f;
 	Acceleration = 0.5f;
-	SpeedYaw = 1.0f;
-	AccelerationYaw = 0.5f;
 
 	AxisProcessing = true;
 	Axis1Value = 0.5f;
@@ -64,8 +62,8 @@ void USIMVRComponent::TickComponent( float DeltaTime, ELevelTick TickType, FActo
 	p.surge = Surge;
 	p.speedAxis123 = Speed;
 	p.accelAxis123 = Acceleration;
-	p.speedAxis4 = SpeedYaw;
-	p.accelAxis4 = AccelerationYaw;
+	p.speedAxis4 = Speed;			//This parameter is obsolete.
+	p.accelAxis4 = Acceleration;	//This parameter is obsolete.
 
 	if (!AxisProcessing) {
 		p.axis1 = Axis1Value;
