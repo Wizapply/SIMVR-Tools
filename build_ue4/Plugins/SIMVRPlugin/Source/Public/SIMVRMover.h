@@ -19,16 +19,8 @@ private:
 	FVector previousPos;
 	FVector previousVec;
 	float previousYaw;
-	float currTime;
 
 	SIMVRMover_Status6DOF* Gcalc6Dof;
-
-	float saveRoll;
-	float savePitch;
-	float saveYaw;
-	float saveHeave;
-	float saveSway;
-	float saveSurge;
 
 	//private method
 	float ToRoundDown(float dValue, int iDigits);
@@ -47,10 +39,8 @@ public:
 
 	UPROPERTY(BlueprintReadWrite, Category = "Target Setting", EditAnywhere)
 		AActor* TrackingTarget;
-	UPROPERTY(BlueprintReadWrite, Category = "Processing Setting", EditAnywhere, meta = (ClampMin = "0.1", ClampMax = "10.0"))
-		float updateTime;
 	UPROPERTY(BlueprintReadWrite, Category = "Processing Setting", EditAnywhere)
-		FVector wscale;
+		FVector Wscale;
 
 	//Rotation
 	UPROPERTY(BlueprintReadWrite, Category = "Force Rotation and G", EditAnywhere, meta = (ClampMin = "-1.0", ClampMax = "1.0", UIMin = "-1.0", UIMax = "1.0"))

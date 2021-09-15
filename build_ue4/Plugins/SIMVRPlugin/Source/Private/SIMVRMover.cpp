@@ -6,82 +6,122 @@
 class SIMVRMover_Status6DOF
 {
 private:
-	float s_maxRoll = 0.0f;
-	float s_maxPitch = 0.0f;
-	float s_maxYaw = 0.0f;
-	float s_maxHeave = 0.0f;
-	float s_maxSway = 0.0f;
-	float s_maxSurge = 0.0f;
+	//Savitzky-Golay Smooth algorithm
+	static const int SAVITZKY_GOLAY_SMOOTH_MAXCOUNT = 8;
+	const float smoothPoint[SAVITZKY_GOLAY_SMOOTH_MAXCOUNT] = { 0.41667f,0.33333f,0.25f,0.16667f,0.08333f,0.0f,-0.08333f,-0.16667f };
+	int smoothPointCurrent;
 
-	float s_minRoll = 0.0f;
-	float s_minPitch = 0.0f;
-	float s_minYaw = 0.0f;
-	float s_minHeave = 0.0f;
-	float s_minSway = 0.0f;
-	float s_minSurge = 0.0f;
+	TArray<float> s_smoothRoll;
+	TArray<float> s_smoothPitch;
+	TArray<float> s_smoothYaw;
+	TArray<float> s_smoothHeave;
+	TArray<float> s_smoothSway;
+	TArray<float> s_smoothSurge;
 
 public:
-	void ZeroResetStatusUpdate()
+	SIMVRMover_Status6DOF()
 	{
-		s_maxRoll = 0.0f;
-		s_maxPitch = 0.0f;
-		s_maxYaw = 0.0f;
-		s_maxHeave = 0.0f;
-		s_maxSway = 0.0f;
-		s_maxSurge = 0.0f;
-
-		s_minRoll = 0.0f;
-		s_minPitch = 0.0f;
-		s_minYaw = 0.0f;
-		s_minHeave = 0.0f;
-		s_minSway = 0.0f;
-		s_minSurge = 0.0f;
+		s_smoothRoll.Init(0.0f, SAVITZKY_GOLAY_SMOOTH_MAXCOUNT);
+		s_smoothPitch.Init(0.0f, SAVITZKY_GOLAY_SMOOTH_MAXCOUNT);
+		s_smoothYaw.Init(0.0f, SAVITZKY_GOLAY_SMOOTH_MAXCOUNT);
+		s_smoothHeave.Init(0.0f, SAVITZKY_GOLAY_SMOOTH_MAXCOUNT);
+		s_smoothSway.Init(0.0f, SAVITZKY_GOLAY_SMOOTH_MAXCOUNT);
+		s_smoothSurge.Init(0.0f, SAVITZKY_GOLAY_SMOOTH_MAXCOUNT);
+		smoothPointCurrent = 0;
 	}
 
-	void MaxStatusUpdate(float roll, float pitch, float yaw, float heave, float sway, float surge)
+	void StatusUpdate(float roll, float pitch, float yaw, float heave, float sway, float surge)
 	{
-		s_maxRoll = FMath::Max(s_maxRoll, roll);
-		s_minRoll = FMath::Min(s_minRoll, roll);
+		s_smoothRoll[smoothPointCurrent] = roll;
+		s_smoothPitch[smoothPointCurrent] = pitch;
+		s_smoothYaw[smoothPointCurrent] = yaw;
+		s_smoothHeave[smoothPointCurrent] = heave;
+		s_smoothSway[smoothPointCurrent] = sway;
+		s_smoothSurge[smoothPointCurrent] = surge;
 
-		s_maxPitch = FMath::Max(s_maxPitch, pitch);
-		s_minPitch = FMath::Min(s_minPitch, pitch);
+		++smoothPointCurrent;
+		if (smoothPointCurrent >= SAVITZKY_GOLAY_SMOOTH_MAXCOUNT)
+			smoothPointCurrent = 0;
 
-		s_maxYaw = FMath::Max(s_maxYaw, yaw);
-		s_minYaw = FMath::Min(s_minYaw, yaw);
-
-		s_maxHeave = FMath::Max(s_maxHeave, heave);
-		s_minHeave = FMath::Min(s_minHeave, heave);
-
-		s_maxSway = FMath::Max(s_maxSway, sway);
-		s_minSway = FMath::Min(s_minSway, sway);
-
-		s_maxSurge = FMath::Max(s_maxSurge, surge);
-		s_minSurge = FMath::Min(s_minSurge, surge);
 	}
 
 	float Roll()
 	{
-		return s_maxRoll + s_minRoll;
+		float result = 0.0f;
+		int index = smoothPointCurrent;
+		for (int i = 0; i < SAVITZKY_GOLAY_SMOOTH_MAXCOUNT; ++i)
+		{
+			result += s_smoothRoll[index] * smoothPoint[i];
+			++index;
+			if (index >= SAVITZKY_GOLAY_SMOOTH_MAXCOUNT) index = 0;
+		}
+
+		return result;
 	}
 	float Pitch()
 	{
-		return s_maxPitch + s_minPitch;
+		float result = 0.0f;
+		int index = smoothPointCurrent;
+		for (int i = 0; i < SAVITZKY_GOLAY_SMOOTH_MAXCOUNT; ++i)
+		{
+			result += s_smoothPitch[index] * smoothPoint[i];
+			++index;
+			if (index >= SAVITZKY_GOLAY_SMOOTH_MAXCOUNT) index = 0;
+		}
+
+		return result;
 	}
 	float Yaw()
 	{
-		return s_maxYaw + s_minYaw;
+		float result = 0.0f;
+		int index = smoothPointCurrent;
+		for (int i = 0; i < SAVITZKY_GOLAY_SMOOTH_MAXCOUNT; ++i)
+		{
+			result += s_smoothYaw[index] * smoothPoint[i];
+			++index;
+			if (index >= SAVITZKY_GOLAY_SMOOTH_MAXCOUNT) index = 0;
+		}
+
+		return result;
 	}
 	float Heave()
 	{
-		return s_maxHeave + s_minHeave;
+		float result = 0.0f;
+		int index = smoothPointCurrent;
+		for (int i = 0; i < SAVITZKY_GOLAY_SMOOTH_MAXCOUNT; ++i)
+		{
+			result += s_smoothHeave[index] * smoothPoint[i];
+			++index;
+			if (index >= SAVITZKY_GOLAY_SMOOTH_MAXCOUNT) index = 0;
+		}
+
+		return result;
 	}
 	float Sway()
 	{
-		return s_maxSway + s_minSway;
+		float result = 0.0f;
+		int index = smoothPointCurrent;
+		for (int i = 0; i < SAVITZKY_GOLAY_SMOOTH_MAXCOUNT; ++i)
+		{
+			result += s_smoothSway[index] * smoothPoint[i];
+			++index;
+			if (index >= SAVITZKY_GOLAY_SMOOTH_MAXCOUNT) index = 0;
+		}
+
+		return result;
 	}
 	float Surge()
 	{
-		return s_maxSurge + s_minSurge;
+		float result = 0.0f;
+		int index = smoothPointCurrent;
+		for (int i = 0; i < SAVITZKY_GOLAY_SMOOTH_MAXCOUNT; ++i)
+		{
+			result += s_smoothSurge[index] * smoothPoint[i];
+			++index;
+			if (index >= SAVITZKY_GOLAY_SMOOTH_MAXCOUNT) index = 0;
+		}
+
+		return result;
 	}
 };
 
@@ -91,14 +131,14 @@ USIMVRMover::USIMVRMover()
 	// Set this component to be initialized when the game starts, and to be ticked every frame.  You can turn these features
 	// off to improve performance if you don't need them.
 	PrimaryComponentTick.bCanEverTick = true;
+	PrimaryComponentTick.TickGroup = TG_PostUpdateWork;
+	PrimaryComponentTick.TickInterval = 0.0f;
 
 	Controller = nullptr;
 	TrackingTarget = nullptr;
 
 	Gcalc6Dof = new SIMVRMover_Status6DOF();
-
-	updateTime = 0.5f;
-	wscale = FVector(1.0f, 1.0f, 1.0f);
+	Wscale = FVector(1.0f, 1.0f, 1.0f);
 }
 
 
@@ -108,6 +148,10 @@ void USIMVRMover::BeginPlay()
 	Super::BeginPlay();
 	Controller = GetOwner()->FindComponentByClass<USIMVRComponent>();
 
+	previousPos = FVector(0.0f, 0.0f, 0.0f);
+	previousYaw = 0.0f;
+	previousVec = FVector(0.0f, 0.0f, 0.0f);
+
 	if (Controller == nullptr) {
 		UE_LOG(SIMVRLog, Warning, TEXT("%s"), L"There is no SIMVRComponent. Please add SIMVRComponent.");
 		return;
@@ -116,16 +160,11 @@ void USIMVRMover::BeginPlay()
 		previousPos = TrackingTarget->GetActorLocation();
 		previousYaw = -TrackingTarget->GetActorRotation().Euler().Z;
 		previousVec = FVector(0.0f, 0.0f, 0.0f);
+		AddTickPrerequisiteActor(TrackingTarget);
 	}else{
 		UE_LOG(SIMVRLog, Warning, TEXT("%s"), L"TrackingTarget value is not specified.");
-		previousPos = FVector(0.0f, 0.0f, 0.0f);
-		previousYaw = 0.0f;
-		previousVec = FVector(0.0f, 0.0f, 0.0f);
-	}
 
-	saveRoll = savePitch = saveYaw = saveHeave = saveSway = saveSurge = 0.0f;
-	currTime = updateTime;
-	Gcalc6Dof->ZeroResetStatusUpdate();
+	}
 }
 
 void USIMVRMover::EndPlay(const EEndPlayReason::Type EndPlayReason)
@@ -141,17 +180,23 @@ void USIMVRMover::TickComponent(float DeltaTime, ELevelTick TickType, FActorComp
 	if (Controller == nullptr)
 		return;
 
+	Controller->Roll = 0.0f;
+	Controller->Pitch = 0.0f;
+	Controller->Yaw = 0.0f;
+	Controller->Heave = 0.0f;
+	Controller->Sway = 0.0f;
+	Controller->Surge = 0.0f;
+
 	if (TrackingTarget != nullptr)
 	{
-		FVector vec = (TrackingTarget->GetActorLocation() - previousPos) / DeltaTime;
-		FVector vecChange = vec - previousVec;
-		previousPos = TrackingTarget->GetActorLocation();
-		previousVec = vec;
+		AddTickPrerequisiteActor(TrackingTarget);
 
-		vecChange.X /= wscale.X;
-		vecChange.Y /= wscale.Y;
-		vecChange.Z /= wscale.Z;
-
+		FVector curPos = TrackingTarget->GetActorLocation() / Wscale;
+		FVector vecPos = (curPos - previousPos) / DeltaTime;
+		FVector vecChange = vecPos - previousVec;
+		previousPos = curPos;
+		previousVec = vecPos;
+		
 		//G_calc
 		FVector surge, sway, heave;
 		surge.X = vecChange.X * TrackingTarget->GetActorForwardVector().X;
@@ -165,9 +210,9 @@ void USIMVRMover::TickComponent(float DeltaTime, ELevelTick TickType, FActorComp
 		heave.Z = vecChange.Z * TrackingTarget->GetActorUpVector().Z;
 
 		//G
-		float dataSurge = ToRoundDown((surge.X + surge.Y + surge.Z), 2);
-		float dataSway = ToRoundDown((sway.X + sway.Y + sway.Z), 2);
-		float dataHeave = ToRoundDown((heave.X + heave.Y + heave.Z), 2);
+		float dataSurge = (surge.X + surge.Y + surge.Z);
+		float dataSway = (sway.X + sway.Y + sway.Z);
+		float dataHeave = (heave.X + heave.Y + heave.Z);
 
 		//YAW_G calc
 		float yaws = FMath::FindDeltaAngleDegrees(-TrackingTarget->GetActorRotation().Euler().Z, previousYaw);	//+-10“x = +-1.0
@@ -177,32 +222,23 @@ void USIMVRMover::TickComponent(float DeltaTime, ELevelTick TickType, FActorComp
 		float rolls = FMath::FindDeltaAngleDegrees(-TrackingTarget->GetActorRotation().Euler().X, 0.0f) / 10.0f;	//+-10“x
 		float pitchs = FMath::FindDeltaAngleDegrees(-TrackingTarget->GetActorRotation().Euler().Y, 0.0f) / 10.0f;	//+-10“x
 
-		Gcalc6Dof->MaxStatusUpdate(ToRoundDown(rolls, 2), ToRoundDown(pitchs, 2), ToRoundDown(yaws, 2),
-			dataHeave, dataSway, dataHeave);
+		Gcalc6Dof->StatusUpdate(rolls, pitchs, yaws, dataHeave, dataSway, dataSurge);
 
 		//Update
-		currTime -= DeltaTime;
-		if (currTime <= 0.0f)
-		{
-			saveRoll = ToRoundDown(rolls, 2);
-			savePitch = ToRoundDown(pitchs, 2);
-			saveYaw = Gcalc6Dof->Yaw();
-			saveHeave = Gcalc6Dof->Heave();
-			saveSway = Gcalc6Dof->Sway();
-			saveSurge = Gcalc6Dof->Surge();
+		Controller->Roll = ToRoundDown(rolls, 2);
+		Controller->Pitch = ToRoundDown(pitchs, 2);
+		Controller->Yaw = ToRoundDown(Gcalc6Dof->Yaw(),2);
+		Controller->Heave = ToRoundDown(Gcalc6Dof->Heave(), 2);
+		Controller->Sway = ToRoundDown(Gcalc6Dof->Sway(), 2);
+		Controller->Surge = ToRoundDown(Gcalc6Dof->Surge(), 2);
 
-			Gcalc6Dof->ZeroResetStatusUpdate();
-			currTime = updateTime;
-		}
-
-		Controller->Roll = saveRoll;
-		Controller->Pitch = savePitch;
-		Controller->Yaw = saveYaw;
-		Controller->Heave = saveHeave;
-		Controller->Sway = saveSway;
-		Controller->Surge = saveSurge;
-
-		//UE_LOG(LogTemp, Log, TEXT("pos %f,%f,%f"), saveSurge, saveSway, saveHeave);
+		//UE_LOG(LogTemp, Log, TEXT("SIMVRMover Surge %f,%f"), Controller->Surge, dataSurge);
+	}
+	else
+	{
+		previousPos = FVector(0.0f, 0.0f, 0.0f);
+		previousYaw = 0.0f;
+		previousVec = FVector(0.0f, 0.0f, 0.0f);
 	}
 
 	//Force power
