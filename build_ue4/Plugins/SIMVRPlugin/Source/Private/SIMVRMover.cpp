@@ -128,8 +128,6 @@ public:
 // Sets default values for this component's properties
 USIMVRMover::USIMVRMover()
 {
-	// Set this component to be initialized when the game starts, and to be ticked every frame.  You can turn these features
-	// off to improve performance if you don't need them.
 	PrimaryComponentTick.bCanEverTick = true;
 	PrimaryComponentTick.TickGroup = TG_PostUpdateWork;
 	PrimaryComponentTick.TickInterval = 0.0f;
@@ -145,6 +143,8 @@ USIMVRMover::USIMVRMover()
 // Called when the game starts
 void USIMVRMover::BeginPlay()
 {
+	// Set this component to be initialized when the game starts, and to be ticked every frame.  You can turn these features
+	// off to improve performance if you don't need them.
 	Super::BeginPlay();
 	Controller = GetOwner()->FindComponentByClass<USIMVRComponent>();
 
@@ -191,11 +191,13 @@ void USIMVRMover::TickComponent(float DeltaTime, ELevelTick TickType, FActorComp
 	{
 		AddTickPrerequisiteActor(TrackingTarget);
 
-		FVector curPos = TrackingTarget->GetActorLocation() / Wscale;
+		FVector curPos = TrackingTarget->GetActorLocation();
 		FVector vecPos = (curPos - previousPos) / DeltaTime;
 		FVector vecChange = vecPos - previousVec;
 		previousPos = curPos;
 		previousVec = vecPos;
+
+		vecChange /= Wscale;
 		
 		//G_calc
 		FVector surge, sway, heave;
