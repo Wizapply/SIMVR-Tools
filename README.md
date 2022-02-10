@@ -1,3 +1,15 @@
+# 2022年2月10日
+**【ご案内とお願い】**  
+SIMVR-Toolsの開発は終了いたしました。  
+新しくプロジェクトを作る場合は、新ツール「WIZMO-TOOLS」への移行をお願い致します。  
+
+https://github.com/Wizapply/WIZMO-TOOLS
+  
+  
+  
+以下アーカイブとなります。
+==================
+  
 SIMVR-TOOLS (SIMVR SDK, ANTSEAT SDK)
 ==================
 
